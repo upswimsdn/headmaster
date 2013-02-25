@@ -2,14 +2,15 @@ package edu.lmu.cs.headmaster.ws.dao;
 
 import java.util.List;
 
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
 import edu.lmu.cs.headmaster.ws.domain.Course;
 
-public class CourseDaoHibernateImpl implements CourseDao {
+public class CourseDaoHibernateImpl extends HibernateDaoSupport implements CourseDao {
 
     @Override
     public Course getCourseById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        return getHibernateTemplate().get(Course.class, id);
     }
 
     @Override
@@ -20,14 +21,13 @@ public class CourseDaoHibernateImpl implements CourseDao {
 
     @Override
     public Course createCourse(Course course) {
-        // TODO Auto-generated method stub
-        return null;
+        getHibernateTemplate().save(course);
+        return course;
     }
 
     @Override
     public void createOrUpdateCourse(Course course) {
-        // TODO Auto-generated method stub
-        
+        getHibernateTemplate().saveOrUpdate(course);
     }
 
 }
