@@ -2,6 +2,8 @@ package edu.lmu.cs.headmaster.ws.domain;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public class Course {
@@ -13,6 +15,8 @@ public class Course {
     private String room;
     private Term term;
     private Integer year;
+    private DateTime startTime;
+    private DateTime endTime;
     private Integer classSize;
     private String instructor;
     private SBGRubric sbgRubric;
@@ -80,6 +84,22 @@ public class Course {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public DateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(DateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public DateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(DateTime endTime) {
+        this.endTime = endTime;
     }
 
     public Integer getClassSize() {

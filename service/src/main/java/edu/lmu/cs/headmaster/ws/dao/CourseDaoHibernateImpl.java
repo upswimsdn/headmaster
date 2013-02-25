@@ -16,6 +16,8 @@ public class CourseDaoHibernateImpl extends HibernateDaoSupport implements Cours
     @Override
     public List<Course> getCourses(String query, int skip, int max) {
         // TODO Auto-generated method stub
+        // Possible queries: by discipline, term / year, teacher, credits, title,
+        // class size, empty/full, id, start time, end time, more tba.
         return null;
     }
 
