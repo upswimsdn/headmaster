@@ -56,3 +56,6 @@ insert into researchgrant_student(grant_id, student_id, students_order) values(1
 insert into researchgrant_student(grant_id, student_id, students_order) values(1000001, 1000003, 1);
 insert into researchgrant_student(grant_id, student_id, students_order) values(1000002, 1000000, 0);
 insert into researchgrant_student(grant_id, student_id, students_order) values(1000002, 1000004, 1);
+
+-- Test fixture for courses
+insert into course(id, instructor) values(100001, 'Dr. Dondi');

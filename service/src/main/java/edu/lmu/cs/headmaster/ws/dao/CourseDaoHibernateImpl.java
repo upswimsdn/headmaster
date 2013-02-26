@@ -2,9 +2,11 @@ package edu.lmu.cs.headmaster.ws.dao;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
+import edu.lmu.cs.headmaster.ws.types.Term;
 
 public class CourseDaoHibernateImpl extends HibernateDaoSupport implements CourseDao {
 
@@ -14,10 +16,8 @@ public class CourseDaoHibernateImpl extends HibernateDaoSupport implements Cours
     }
 
     @Override
-    public List<Course> getCourses(String query, int skip, int max) {
-        // TODO Auto-generated method stub
-        // Possible queries: by discipline, term / year, teacher, credits, title,
-        // class size, empty/full, id, start time, end time, more tba.
+    public List<Course> getCourses(String fieldOfStudy, List<DateTime> classTimes, String instructor,
+            Integer classSize, Term term, Integer year, int skip, int max) {
         return null;
     }
 

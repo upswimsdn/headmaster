@@ -2,10 +2,28 @@ package edu.lmu.cs.headmaster.ws.domain;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 import edu.lmu.cs.headmaster.ws.types.Term;
 
+@Entity
+@XmlRootElement
 public class Course {
     private Long id;
     private String classTitle;
@@ -15,13 +33,15 @@ public class Course {
     private String room;
     private Term term;
     private Integer year;
-    private DateTime startTime;
-    private DateTime endTime;
+    private List<DateTime> classTimes;
+    private Duration classLength;
     private Integer classSize;
     private String instructor;
-    private SBGRubric sbgRubric;
     private List<Student> enrolledStudents;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlAttribute
     public Long getId() {
         return id;
     }
@@ -86,22 +106,6 @@ public class Course {
         this.year = year;
     }
 
-    public DateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(DateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public DateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(DateTime endTime) {
-        this.endTime = endTime;
-    }
-
     public Integer getClassSize() {
         return classSize;
     }
@@ -118,20 +122,34 @@ public class Course {
         this.instructor = instructor;
     }
 
-    public SBGRubric getSbgRubric() {
-        return sbgRubric;
-    }
-
-    public void setSbgRubric(SBGRubric sbgRubric) {
-        this.sbgRubric = sbgRubric;
-    }
-
+    @OneToMany
+    @OrderColumn
+    @JoinTable(joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<Student> getEnrolledStudents() {
         return enrolledStudents;
     }
 
     public void setEnrolledStudents(List<Student> enrolledStudents) {
         this.enrolledStudents = enrolledStudents;
+    }
+
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @ElementCollection
+    public List<DateTime> getClassTimes() {
+        return classTimes;
+    }
+
+    public void setClassTimes(List<DateTime> classTimes) {
+        this.classTimes = classTimes;
+    }
+
+    public Duration getClassLength() {
+        return classLength;
+    }
+
+    public void setClassLength(Duration classLength) {
+        this.classLength = classLength;
     }
 
 }
