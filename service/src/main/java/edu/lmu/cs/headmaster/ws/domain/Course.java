@@ -1,7 +1,9 @@
 package edu.lmu.cs.headmaster.ws.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -33,11 +36,11 @@ public class Course {
     private String room;
     private Term term;
     private Integer year;
-    private List<DateTime> classTimes;
+    private List<DateTime> classTimes = new ArrayList<DateTime>();
     private Duration classLength;
     private Integer classSize;
     private String instructor;
-    private List<Student> enrolledStudents;
+    private List<Student> enrolledStudents = new ArrayList<Student>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -122,10 +125,11 @@ public class Course {
         this.instructor = instructor;
     }
 
-    @OneToMany
-    @OrderColumn
-    @JoinTable(joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
+    @ManyToMany(cascade = CascadeType.ALL)
+    @OrderBy("lastName")
+    @JoinTable(joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
+    @XmlTransient
     public List<Student> getEnrolledStudents() {
         return enrolledStudents;
     }
@@ -136,6 +140,7 @@ public class Course {
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
     @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<DateTime> getClassTimes() {
         return classTimes;
     }
@@ -144,6 +149,7 @@ public class Course {
         this.classTimes = classTimes;
     }
 
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentDuration")
     public Duration getClassLength() {
         return classLength;
     }
@@ -151,5 +157,4 @@ public class Course {
     public void setClassLength(Duration classLength) {
         this.classLength = classLength;
     }
-
 }

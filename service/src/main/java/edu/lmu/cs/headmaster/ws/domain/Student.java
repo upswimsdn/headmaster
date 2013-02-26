@@ -77,6 +77,7 @@ public class Student {
     private List<Grant> grants = new ArrayList<Grant>();
     private StudentRecord record = new StudentRecord();
     private List<String> foodPreference = new ArrayList<String>();
+    private List<Course> enrolledCourses = new ArrayList<Course>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -455,5 +456,15 @@ public class Student {
 	public void setFoodPreference(List<String> foodPreference) {
 		this.foodPreference = foodPreference;
 	}
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "enrolledStudents")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@XmlTransient
+    public List<Course> getEnrolledCourses() {
+        return enrolledCourses;
+    }
+
+    public void setEnrolledCourses(List<Course> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
+    }
 
 }
