@@ -123,4 +123,44 @@ public class CourseDaoTest extends ApplicationContextTest {
         Assert.assertEquals(1, courses.size());
     }
 
+    @Test
+    public void testGetCoursesByMaxClassSize() {
+        List<Course> courses = courseDao.getCourses(null, null, null, 1, null, null, null, 0, 10);
+        Assert.assertEquals(0, courses.size());
+
+        courses = courseDao.getCourses(null, null, null, 10, null, null, null, 0, 10);
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100003L), courses.get(0).getId());
+
+        courses = courseDao.getCourses(null, null, null, 10, null, null, null, 0, 10);
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100003L), courses.get(0).getId());
+    }
+
+    @Test
+    public void testGetCoursesByMinClassSize() {
+        List<Course> courses = courseDao.getCourses(null, null, null, null, 10, null, null, 0, 10);
+        Assert.assertEquals(3, courses.size());
+        Assert.assertEquals(Long.valueOf(100001L), courses.get(0).getId());
+        Assert.assertEquals(Long.valueOf(100002L), courses.get(1).getId());
+        Assert.assertEquals(Long.valueOf(100003L), courses.get(2).getId());
+
+        courses = courseDao.getCourses(null, null, null, null, 20, null, null, 0, 10);
+        Assert.assertEquals(2, courses.size());
+        Assert.assertEquals(Long.valueOf(100001L), courses.get(0).getId());
+        Assert.assertEquals(Long.valueOf(100002L), courses.get(1).getId());
+
+        courses = courseDao.getCourses(null, null, null, null, 30, null, null, 0, 10);
+        Assert.assertEquals(0, courses.size());
+    }
+
+    @Test
+    public void testGetCoursesByMinAndMaxClassSize() {
+        List<Course> courses = courseDao.getCourses(null, null, null, 15, 10, null, null, 0, 10);
+        Assert.assertEquals(1, courses.size());
+
+        courses = courseDao.getCourses(null, null, null, 30, 25, null, null, 0, 10);
+        Assert.assertEquals(0, courses.size());
+    }
+
 }
