@@ -33,7 +33,7 @@ public class CourseDaoHibernateImpl extends HibernateDaoSupport implements Cours
         }
 
         if (instructor != null) {
-
+            builder.clause("lower(c.instructor) like lower(:teacher)", instructor + "%");
         }
 
         if (maxClassSize != null) {

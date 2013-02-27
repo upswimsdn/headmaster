@@ -163,4 +163,20 @@ public class CourseDaoTest extends ApplicationContextTest {
         Assert.assertEquals(0, courses.size());
     }
 
+    @Test
+    public void testGetCoursesByInstructor() {
+        List<Course> courses = courseDao.getCourses(null, null, "Prof. X", null, null, null, null, 0, 10);
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100002L), courses.get(0).getId());
+        Assert.assertEquals("Prof. X", courses.get(0).getInstructor());
+
+        courses = courseDao.getCourses(null, null, "prof. x", null, null, null, null, 0, 10);
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100002L), courses.get(0).getId());
+        Assert.assertEquals("Prof. X", courses.get(0).getInstructor());
+
+        courses = courseDao.getCourses(null, null, "asgsad", null, null, null, null, 0, 10);
+        Assert.assertEquals(0, courses.size());
+    }
+
 }
