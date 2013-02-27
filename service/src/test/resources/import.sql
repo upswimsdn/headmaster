@@ -62,8 +62,8 @@ insert into course(id, instructor, classlength, term, year) values(100001, 'Dr. 
 insert into course(id, instructor, term, year) values(100002, 'Prof. X', 2, 2013);
 insert into course(id, discipline, term, year) values(100003, 'Computer Science', 1, 2013);
 
-insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-25 11:00:00');
-insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-27 11:00:00');
-insert into course_classtimes(course_id, classtimes) values(100001, '2013-03-01 11:00:00');
+insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-18 11:00:00');
+insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-20 11:00:00');
+insert into course_classtimes(course_id, classtimes) values(100001, '2013-03-22 11:00:00');
 
 insert into course_student(course_id, student_id) values(100001, 1000000);

@@ -1,9 +1,11 @@
 package edu.lmu.cs.headmaster.ws.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
 
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.junit.Before;
 import org.junit.Test;
@@ -100,6 +102,25 @@ public class CourseDaoTest extends ApplicationContextTest {
         List<Course> courses = courseDao.getCourses(null, null, null, null, null, Term.SUMMER, 2013, 0, 10);
         Assert.assertEquals(1, courses.size());
         Assert.assertEquals(Long.valueOf(100003L), courses.get(0).getId());
+    }
+
+    @Test
+    public void testGetCoursesByClassTime() {
+        List<DateTime> times = new ArrayList<DateTime>();
+        times.add(new DateTime(2013, 2, 18, 11, 0, 0, 0));
+        times.add(new DateTime(2013, 2, 20, 11, 0, 0, 0));
+        List<Course> courses = courseDao.getCourses(null, times, null, null, null, null, null, 0, 10);
+        Assert.assertEquals(1, courses.size());
+
+        times.clear();
+        times.add(new DateTime(2013, 2, 20, 12, 0, 0, 0));
+        courses = courseDao.getCourses(null, times, null, null, null, null, null, 0, 10);
+        Assert.assertEquals(0, courses.size());
+
+        times.add(new DateTime(2013, 2, 20, 12, 0, 0, 0));
+        times.add(new DateTime(2013, 2, 18, 11, 0, 0, 0));
+        courses = courseDao.getCourses(null, times, null, null, null, null, null, 0, 10);
+        Assert.assertEquals(1, courses.size());
     }
 
 }

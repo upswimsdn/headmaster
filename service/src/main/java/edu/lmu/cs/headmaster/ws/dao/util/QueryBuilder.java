@@ -111,7 +111,11 @@ public class QueryBuilder {
 
         Query query = createQuery(session, queryString);
         for (Map.Entry<String, Object> e : parameters.entrySet()) {
-            query.setParameter(e.getKey(), e.getValue());
+            if (e.getValue() instanceof List) {
+                query.setParameterList(e.getKey(), (List<?>) e.getValue());
+            } else {
+                query.setParameter(e.getKey(), e.getValue());
+            }
         }
 
         if (logger.isDebugEnabled()) {

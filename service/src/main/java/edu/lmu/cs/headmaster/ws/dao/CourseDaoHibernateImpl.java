@@ -20,14 +20,16 @@ public class CourseDaoHibernateImpl extends HibernateDaoSupport implements Cours
     @SuppressWarnings("unchecked")
     public List<Course> getCourses(String discipline, List<DateTime> classTimes, String instructor,
             Integer maxClassSize, Integer minClassSize, Term term, Integer year, int skip, int max) {
-        QueryBuilder builder = new QueryBuilder("select c from Course c");
+        // Ask dondi about this...
+        QueryBuilder builder = new QueryBuilder("select distinct c from Course c");
 
         if (discipline != null) {
             builder.clause("c.discipline = :field", discipline);
         }
 
-        if (classTimes != null) {
-
+        if (classTimes != null && classTimes.size() > 0) {
+            builder.append(" join c.classTimes as times");
+            builder.clause("times in (:requestedTimes)", classTimes);
         }
 
         if (instructor != null) {
@@ -37,9 +39,9 @@ public class CourseDaoHibernateImpl extends HibernateDaoSupport implements Cours
         if (maxClassSize != null) {
 
         }
-        
+
         if (minClassSize != null) {
-            
+
         }
 
         if (term != null) {

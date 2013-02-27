@@ -138,6 +138,12 @@ public class Course {
         this.enrolledStudents = enrolledStudents;
     }
 
+    /*
+     * For class times, we'll just arbitrarily pick the week of Monday, February 18, 2013 to Sunday, February 24, 2013
+     * to determine what days a class takes place. joda-time does not have a feature to just store an arbitrary day of
+     * the week and hour. Note to future Eric: should probably have checks against any dates that are passed in outside
+     * of this range and to shave also off seconds or minutes.
+     */
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
