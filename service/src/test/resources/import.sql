@@ -58,8 +58,9 @@ insert into researchgrant_student(grant_id, student_id, students_order) values(1
 insert into researchgrant_student(grant_id, student_id, students_order) values(1000002, 1000004, 1);
 
 -- Test fixture for courses
-insert into course(id, instructor, classlength) values(100001, 'Dr. Dondi', 'PT3000S');
-insert into course(id, instructor) values(100002, 'Prof. X');
+insert into course(id, instructor, classlength, term, year) values(100001, 'Dr. Dondi', 'PT3000S', 1, 2014);
+insert into course(id, instructor, term, year) values(100002, 'Prof. X', 2, 2013);
+insert into course(id, discipline, term, year) values(100003, 'Computer Science', 1, 2013);
 
 insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-25 11:00:00');
 insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-27 11:00:00');

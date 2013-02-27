@@ -1,14 +1,17 @@
 package edu.lmu.cs.headmaster.ws.dao;
 
+import java.util.List;
+
 import junit.framework.Assert;
 
+import org.joda.time.DateTimeConstants;
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
+import edu.lmu.cs.headmaster.ws.domain.Student;
+import edu.lmu.cs.headmaster.ws.types.Term;
 import edu.lmu.cs.headmaster.ws.util.ApplicationContextTest;
-
-import org.joda.time.DateTimeConstants;
 
 public class CourseDaoTest extends ApplicationContextTest {
 
@@ -36,10 +39,10 @@ public class CourseDaoTest extends ApplicationContextTest {
         Assert.assertEquals(11, c.getClassTimes().get(1).getHourOfDay());
         Assert.assertEquals(DateTimeConstants.FRIDAY, c.getClassTimes().get(2).getDayOfWeek());
         Assert.assertEquals(11, c.getClassTimes().get(2).getHourOfDay());
-        
+
         Assert.assertEquals(1, c.getEnrolledStudents().size());
         Assert.assertEquals(Long.valueOf(1000000L), c.getEnrolledStudents().get(0).getId());
-        
+
         Assert.assertEquals(c.getClassLength().getMillis(), 3000000L);
     }
 
@@ -55,6 +58,48 @@ public class CourseDaoTest extends ApplicationContextTest {
         c = courseDao.getCourseById(100002L);
         Assert.assertEquals(Long.valueOf(100002L), c.getId());
         Assert.assertEquals("Dolores Umbridge", c.getInstructor());
+    }
+
+    @Test
+    public void testEnrollingNewStudentToCourse() {
+        Course beforeCourse = courseDao.getCourseById(100001L);
+        Assert.assertEquals(1, beforeCourse.getEnrolledStudents().size());
+        Student student = new Student();
+        student.setId(1000001L);
+        beforeCourse.getEnrolledStudents().add(student);
+        courseDao.createOrUpdateCourse(beforeCourse);
+        Course afterCourse = courseDao.getCourseById(100001L);
+        Assert.assertEquals(2, afterCourse.getEnrolledStudents().size());
+        Assert.assertEquals(Long.valueOf(1000001L), afterCourse.getEnrolledStudents().get(1).getId());
+    }
+
+    @Test
+    public void testGetCoursesByDiscipline() {
+        List<Course> courses = courseDao.getCourses("Computer Science", null, null, null, null, null, null, 0, 10);
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100003L), courses.get(0).getId());
+    }
+
+    @Test
+    public void testGetCoursesByTerm() {
+        List<Course> courses = courseDao.getCourses(null, null, null, null, null, Term.SUMMER, null, 0, 10);
+        Assert.assertEquals(2, courses.size());
+        Assert.assertEquals(Long.valueOf(100001L), courses.get(0).getId());
+        Assert.assertEquals(Long.valueOf(100003L), courses.get(1).getId());
+    }
+
+    public void testGetCoursesByYear() {
+        List<Course> courses = courseDao.getCourses(null, null, null, null, null, null, 2013, 0, 10);
+        Assert.assertEquals(2, courses.size());
+        Assert.assertEquals(Long.valueOf(100002L), courses.get(0).getId());
+        Assert.assertEquals(Long.valueOf(100003L), courses.get(1).getId());
+    }
+
+    @Test
+    public void testGetCoursesByTermAndYear() {
+        List<Course> courses = courseDao.getCourses(null, null, null, null, null, Term.SUMMER, 2013, 0, 10);
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100003L), courses.get(0).getId());
     }
 
 }

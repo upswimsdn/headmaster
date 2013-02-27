@@ -11,8 +11,8 @@ public interface CourseDao {
 
     Course getCourseById(Long id);
     
-    List<Course> getCourses(String fieldOfStudy, List<DateTime> classTimes, String instructor,
-            Integer classSize, Term term, Integer year,int skip, int max);
+    List<Course> getCourses(String discipline, List<DateTime> classTimes, String instructor,
+            Integer maxClassSize, Integer minClassSize, Term term, Integer year,int skip, int max);
     
     Course createCourse(Course course);
     
