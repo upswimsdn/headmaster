@@ -1,24 +1,20 @@
 package edu.lmu.cs.headmaster.ws.domain;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class SBGOutcome {
+public class SBGProficiency {
     private Long id;
     private String description;
-    private List<SBGProficiency> proficiencies;
+    private Integer grade;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @XmlAttribute
     public Long getId() {
         return id;
     }
@@ -35,11 +31,11 @@ public class SBGOutcome {
         this.description = description;
     }
 
-    public List<SBGProficiency> getProficiencies() {
-        return proficiencies;
+    public Integer getGrade() {
+        return grade;
     }
 
-    public void setProficiencies(List<SBGProficiency> proficiencies) {
-        this.proficiencies = proficiencies;
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 }
