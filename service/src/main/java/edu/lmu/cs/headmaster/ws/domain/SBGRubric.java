@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class SBGRubric {
     private Long id;
+    private List<SBGOutcome> outcomes;
+    private List<SBGAssignment> assignments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,9 +26,6 @@ public class SBGRubric {
     public void setId(Long id) {
         this.id = id;
     }
-
-    private List<SBGOutcome> outcomes;
-    private List<SBGAssignment> assignments;
 
     public List<SBGOutcome> getOutcomes() {
         return outcomes;
