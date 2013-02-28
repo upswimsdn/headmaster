@@ -1,5 +1,6 @@
 package edu.lmu.cs.headmaster.ws.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,8 +25,8 @@ import edu.lmu.cs.headmaster.ws.types.GradingStrategy;
 public class SBGRubric {
     private Long id;
     private String courseName;
-    private List<SBGOutcome> outcomes;
-    private List<SBGAssignment> assignments;
+    private List<SBGOutcome> outcomes = new ArrayList<SBGOutcome>();
+    private List<SBGAssignment> assignments = new ArrayList<SBGAssignment>();
     private GradingStrategy gradingMethod;
 
     @Id

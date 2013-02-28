@@ -28,8 +28,7 @@ public class SBGRubricDaoHibernateImpl extends HibernateDaoSupport implements SB
 
     @Override
     public void createOrUpdateRubric(SBGRubric rubric) {
-        // TODO Auto-generated method stub
-
+        getHibernateTemplate().saveOrUpdate(rubric);
     }
 
 }
