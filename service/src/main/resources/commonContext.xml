@@ -25,6 +25,10 @@
                 <value>edu.lmu.cs.headmaster.ws.domain.User</value>
                 <value>edu.lmu.cs.headmaster.ws.domain.UserRole</value>
                 <value>edu.lmu.cs.headmaster.ws.domain.Course</value>
+                <value>edu.lmu.cs.headmaster.ws.domain.SBGRubric</value>
+                <value>edu.lmu.cs.headmaster.ws.domain.SBGOutcome</value>
+                <value>edu.lmu.cs.headmaster.ws.domain.SBGAssignment</value>
+                <value>edu.lmu.cs.headmaster.ws.domain.SBGProficiency</value>
             </list>
         </property>
     </bean>
@@ -105,6 +109,11 @@
         autowire="byName"
     />
 
+    <bean id="SBGRubricDaoImpl"
+        class="edu.lmu.cs.headmaster.ws.dao.SBGRubricDaoHibernateImpl"
+        autowire="byName"
+    />
+
     <bean id="studentService"
         class="edu.lmu.cs.headmaster.ws.service.StudentServiceImpl">
         <constructor-arg ref="studentDao"/>
@@ -171,6 +180,19 @@
             <list>
                 <value>hibernateInterceptor</value>
                 <value>courseDaoImpl</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="rubricDao" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>edu.lmu.cs.headmaster.ws.dao.SBGRubricDao</value>
+        </property>
+
+        <property name="interceptorNames">
+            <list>
+                <value>hibernateInterceptor</value>
+                <value>SBGRubricDaoImpl</value>
             </list>
         </property>
     </bean>

@@ -2,15 +2,16 @@ package edu.lmu.cs.headmaster.ws.dao;
 
 import java.util.List;
 
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
 import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.domain.SBGRubric;
 
-public class SBGRubricDaoHibernateImpl implements SBGRubricDao {
+public class SBGRubricDaoHibernateImpl extends HibernateDaoSupport implements SBGRubricDao {
 
     @Override
     public SBGRubric getRubricById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        return getHibernateTemplate().get(SBGRubric.class, id);
     }
 
     @Override

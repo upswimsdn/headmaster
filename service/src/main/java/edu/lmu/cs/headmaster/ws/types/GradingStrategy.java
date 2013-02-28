@@ -1,5 +1,5 @@
 package edu.lmu.cs.headmaster.ws.types;
 
-public enum GradingType {
+public enum GradingStrategy {
     MEAN, MEDIAN, MODE
 }

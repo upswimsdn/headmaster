@@ -67,3 +67,6 @@ insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-20 
 insert into course_classtimes(course_id, classtimes) values(100001, '2013-03-22 11:00:00');
 
 insert into course_student(course_id, student_id) values(100001, 1000000);
+
+--  Test fixtures for SBGRubric
+insert into sbgrubric(id, coursename, gradingmethod) values(100001, 'Intro to Database Systems', 0);
