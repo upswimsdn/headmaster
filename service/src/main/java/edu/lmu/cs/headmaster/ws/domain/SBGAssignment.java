@@ -21,9 +21,9 @@ import org.joda.time.DateTime;
 public class SBGAssignment {
     private Long id;
     private String title;
+    private String description;
     private DateTime assignedDate;
     private DateTime dueDate;
-    private Boolean active;
     private List<SBGProficiency> proficiencies;
 
     @Id
@@ -45,6 +45,14 @@ public class SBGAssignment {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
     public DateTime getAssignedDate() {
         return assignedDate;
@@ -61,14 +69,6 @@ public class SBGAssignment {
 
     public void setDueDate(DateTime dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
     }
 
     @ManyToMany

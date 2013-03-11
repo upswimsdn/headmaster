@@ -57,6 +57,7 @@ public interface StudentResource {
             @QueryParam("gpaTo") Double maxTermGpa,
             @QueryParam("gpaTerm") Term term,
             @QueryParam("gpaYear") Integer year,
+            @QueryParam("enrolledCourseId") Long courseId,
             @QueryParam("skip") @DefaultValue("0") int skip,
             @QueryParam("max") @DefaultValue("100") int max);
 

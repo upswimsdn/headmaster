@@ -9,9 +9,9 @@ import edu.lmu.cs.headmaster.ws.domain.StudentRecord;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public class StudentServiceImpl implements StudentService {
-    
+
     private StudentDao studentDao;
-    
+
     public StudentServiceImpl(StudentDao studentDao) {
         this.studentDao = studentDao;
     }
@@ -20,11 +20,11 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> getStudents(String query, Boolean active, Boolean transferStudent,
             Integer expectedGraduationYearFrom, Integer expectedGraduationYearTo,
             Double minCumulativeGpa, Double maxCumulativeGpa, Double minTermGpa, 
-            Double maxTermGpa, Term term, Integer year, int skip, int max) {
+            Double maxTermGpa, Term term, Integer year, Long courseId, int skip, int max) {
         
         return studentDao.getStudents(
                 query, active, transferStudent, expectedGraduationYearFrom, expectedGraduationYearTo,
-                minCumulativeGpa, maxCumulativeGpa, minTermGpa, maxTermGpa, term, year,
+                minCumulativeGpa, maxCumulativeGpa, minTermGpa, maxTermGpa, term, year, courseId,
                 skip, max
             );
     }
@@ -41,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
         if (currentStudent != null) {
             student.setRecord(currentStudent.getRecord());
         }
-        
+
         studentDao.createOrUpdateStudent(student);
     }
 

@@ -25,7 +25,7 @@ public interface StudentDao {
             Integer expectedGraduationYearFrom, Integer expectedGraduationYearTo,
             Double minCumulativeGpa, Double maxCumulativeGpa,
             Double minTermGpa, Double maxTermGpa, 
-            Term term, Integer year, int skip, int max);
+            Term term, Integer year, Long courseId, int skip, int max);
 
     /**
      * Returns the events attended by the student with the given id.

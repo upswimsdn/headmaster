@@ -28,23 +28,20 @@ public class StudentDaoHibernateImpl extends HibernateDaoSupport implements Stud
     @Override
     @SuppressWarnings("unchecked")
     public List<Student> getStudents(String query, Boolean active, Boolean transferStudent,
-            Integer expectedGraduationYearFrom, Integer expectedGraduationYearTo,
-            Double minCumulativeGpa, Double maxCumulativeGpa,
-            Double minTermGpa, Double maxTermGpa,
-            Term term, Integer year, int skip, int max) {
-        return createStudentQuery(query, active, transferStudent,
-                expectedGraduationYearFrom, expectedGraduationYearTo,
-                minCumulativeGpa, maxCumulativeGpa, minTermGpa, maxTermGpa, term, year)
-            .build(getSession())
-            .setFirstResult(skip)
-            .setMaxResults(max)
-            .list();
+            Integer expectedGraduationYearFrom, Integer expectedGraduationYearTo, Double minCumulativeGpa,
+            Double maxCumulativeGpa, Double minTermGpa, Double maxTermGpa, Term term, Integer year, Long courseId,
+            int skip, int max) {
+        return createStudentQuery(query, active, transferStudent, expectedGraduationYearFrom, expectedGraduationYearTo,
+                minCumulativeGpa, maxCumulativeGpa, minTermGpa, maxTermGpa, term, year, courseId).build(getSession())
+                .setFirstResult(skip)
+                .setMaxResults(max)
+                .list();
     }
 
     @Override
     public List<Event> getStudentAttendanceById(Long id) {
-        Student student = (Student)getSession()
-                .createQuery("from Student s left join fetch s.attendance where s.id = :id")
+        Student student = (Student) getSession().createQuery(
+                "from Student s left join fetch s.attendance where s.id = :id")
                 .setParameter("id", id)
                 .uniqueResult();
 
@@ -54,25 +51,23 @@ public class StudentDaoHibernateImpl extends HibernateDaoSupport implements Stud
     @Override
     @SuppressWarnings("unchecked")
     public List<String> getMatchingCollegesOrSchools(String query, int skip, int max) {
-        return (List<String>)getSession()
-            .createQuery(
-                "select distinct m.collegeOrSchool from Major m where lower(m.collegeOrSchool) like lower(:query) order by m.collegeOrSchool"
-            ).setString("query", "%" + query + "%")
-            .setFirstResult(skip)
-            .setMaxResults(max)
-            .list();
+        return (List<String>) getSession().createQuery(
+                "select distinct m.collegeOrSchool from Major m where lower(m.collegeOrSchool) like lower(:query) order by m.collegeOrSchool")
+                .setString("query", "%" + query + "%")
+                .setFirstResult(skip)
+                .setMaxResults(max)
+                .list();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<String> getMatchingDegrees(String query, int skip, int max) {
-        return (List<String>)getSession()
-            .createQuery(
-                "select distinct m.degree from Major m where lower(m.degree) like lower(:query) order by m.degree"
-            ).setString("query", "%" + query + "%")
-            .setFirstResult(skip)
-            .setMaxResults(max)
-            .list();
+        return (List<String>) getSession().createQuery(
+                "select distinct m.degree from Major m where lower(m.degree) like lower(:query) order by m.degree")
+                .setString("query", "%" + query + "%")
+                .setFirstResult(skip)
+                .setMaxResults(max)
+                .list();
     }
 
     @Override
@@ -80,13 +75,13 @@ public class StudentDaoHibernateImpl extends HibernateDaoSupport implements Stud
     public List<String> getMatchingDisciplines(String query, int skip, int max) {
         // HQL does not do unions, so we drop to SQL here.
         final String wildcard = "%" + query + "%";
-        return (List<String>)getSession()
-            .createSQLQuery("select distinct discipline from major where lower(discipline) like lower(:query1) union select distinct minors as discipline from student_minors where lower(minors) like lower(:query2) order by discipline")
-            .setString("query1", wildcard)
-            .setString("query2", wildcard)
-            .setFirstResult(skip)
-            .setMaxResults(max)
-            .list();
+        return (List<String>) getSession().createSQLQuery(
+                "select distinct discipline from major where lower(discipline) like lower(:query1) union select distinct minors as discipline from student_minors where lower(minors) like lower(:query2) order by discipline")
+                .setString("query1", wildcard)
+                .setString("query2", wildcard)
+                .setFirstResult(skip)
+                .setMaxResults(max)
+                .list();
     }
 
     @Override
@@ -114,41 +109,37 @@ public class StudentDaoHibernateImpl extends HibernateDaoSupport implements Stud
     }
 
     /**
-     * Returns a base HQL query object (no pagination) for the given parameters
-     * for students.
+     * Returns a base HQL query object (no pagination) for the given parameters for students.
      */
     private QueryBuilder createStudentQuery(String query, Boolean active, Boolean transferStudent,
-            Integer expectedGraduationYearFrom, Integer expectedGraduationYearTo, 
-            Double minCumulativeGpa, Double maxCumulativeGpa,
-            Double minTermGpa, Double maxTermGpa, Term term, Integer year) {
+            Integer expectedGraduationYearFrom, Integer expectedGraduationYearTo, Double minCumulativeGpa,
+            Double maxCumulativeGpa, Double minTermGpa, Double maxTermGpa, Term term, Integer year, Long courseId) {
         // The desired return order is lastName, firstName.
-        QueryBuilder builder = new QueryBuilder(
-                "select s from Student s",
-                "order by lower(s.lastName), lower(s.firstName)"
-        );
-        
+        QueryBuilder builder = new QueryBuilder("select s from Student s",
+                "order by lower(s.lastName), lower(s.firstName)");
+
         if (minTermGpa != null || maxTermGpa != null) {
             builder.append(" join s.record.grades as sgrade");
             builder.clause("sgrade.term = :term", term);
             builder.clause("sgrade.year = :year", year);
         }
-        
+
         if (minTermGpa != null) {
             builder.clause("sgrade.gpa >= :minTermGpa", minTermGpa);
         }
-        
+
         if (maxTermGpa != null) {
             builder.clause("sgrade.gpa <= :maxTermGpa", maxTermGpa);
         }
-        
+
         if (minCumulativeGpa != null) {
             builder.clause("s.record.cumulativeGpa >= :minCumGpa", minCumulativeGpa);
         }
-        
+
         if (maxCumulativeGpa != null) {
             builder.clause("s.record.cumulativeGpa <= :maxCumGpa", maxCumulativeGpa);
         }
-        
+
         if (query != null) {
             Matcher m = WORD_COMMA_WORD.matcher(query);
             if (m.matches()) {
@@ -178,6 +169,11 @@ public class StudentDaoHibernateImpl extends HibernateDaoSupport implements Stud
 
         if (transferStudent != null) {
             builder.clause("s.transferStudent = :transferStudent", transferStudent);
+        }
+        
+        if (courseId != null) {
+            builder.append(" join s.enrolledCourses as c");
+            builder.clause("c.id <= :requestedCourse", courseId);
         }
 
         // All done.

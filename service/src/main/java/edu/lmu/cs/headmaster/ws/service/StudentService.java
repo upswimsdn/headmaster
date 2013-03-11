@@ -20,6 +20,7 @@ public interface StudentService {
                 Double maxTermGpa,
                 Term term,
                 Integer year,
+                Long courseId,
                 int skip,
                 int max);
 

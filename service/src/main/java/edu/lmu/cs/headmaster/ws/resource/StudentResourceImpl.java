@@ -47,7 +47,7 @@ public class StudentResourceImpl extends AbstractResource implements StudentReso
             Integer expectedGraduationYearFrom, Integer expectedGraduationYearTo,
             Double minCumulativeGpa, Double maxCumulativeGpa,
             Double minTermGpa, Double maxTermGpa,
-            Term term, Integer year, int skip, int max) {
+            Term term, Integer year, Long courseId, int skip, int max) {
         logServiceCall();
 
         // classYear is mutually exclusive with (expectedGraduationYearFrom,
@@ -107,7 +107,7 @@ public class StudentResourceImpl extends AbstractResource implements StudentReso
         return studentService.getStudents(
             query != null ? preprocessQuery(query, skip, max, 0, 100) : null,
             active, transferStudent, expectedGraduationYearFrom, expectedGraduationYearTo,
-            minCumulativeGpa, maxCumulativeGpa, minTermGpa, maxTermGpa, term, year,
+            minCumulativeGpa, maxCumulativeGpa, minTermGpa, maxTermGpa, term, year, courseId,
             skip, max
         );
     }
