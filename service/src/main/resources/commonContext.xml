@@ -29,6 +29,9 @@
                 <value>edu.lmu.cs.headmaster.ws.domain.SBGOutcome</value>
                 <value>edu.lmu.cs.headmaster.ws.domain.SBGAssignment</value>
                 <value>edu.lmu.cs.headmaster.ws.domain.SBGProficiency</value>
+                <value>edu.lmu.cs.headmaster.ws.domain.SBGRecord</value>
+                <value>edu.lmu.cs.headmaster.ws.domain.SBGAssignmentReport</value>
+                <value>edu.lmu.cs.headmaster.ws.domain.SBGGrade</value>
             </list>
         </property>
     </bean>

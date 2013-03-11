@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,13 +18,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 @Entity
 @XmlRootElement
-public class SBGOutcome {
+public class SBGAssignmentReport {
     private Long id;
-    private String description;
-    private List<SBGProficiency> proficiencies = new ArrayList<SBGProficiency>();
+    private SBGAssignment assignment;
+    private DateTime submissionDate;
+    private List<SBGGrade> grades = new ArrayList<SBGGrade>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,28 +39,34 @@ public class SBGOutcome {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
     
+    @Lob
+    public SBGAssignment getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(SBGAssignment assignment) {
+        this.assignment = assignment;
+    }
+
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    public DateTime getSubmissionDate() {
+        return submissionDate;
+    }
+
+    public void setSubmissionDate(DateTime submissionDate) {
+        this.submissionDate = submissionDate;
+    }
+
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "sbgassignmentreport_id"), inverseJoinColumns = @JoinColumn(name = "sbggrade_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(joinColumns = @JoinColumn(name = "outcome_id"), inverseJoinColumns = @JoinColumn(name = "proficiency_id"))
     @XmlTransient
-    public List<SBGProficiency> getProficiencies() {
-        return proficiencies;
+    public List<SBGGrade> getGrades() {
+        return grades;
     }
 
-    public void setProficiencies(List<SBGProficiency> proficiencies) {
-        this.proficiencies = proficiencies;
-    }
-    
-    public void addProficiency(SBGProficiency p) {
-        this.proficiencies.add(p);
+    public void setGrades(List<SBGGrade> grades) {
+        this.grades = grades;
     }
 }

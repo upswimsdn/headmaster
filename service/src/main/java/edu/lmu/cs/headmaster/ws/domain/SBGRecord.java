@@ -20,10 +20,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @XmlRootElement
-public class SBGOutcome {
+public class SBGRecord {
     private Long id;
-    private String description;
-    private List<SBGProficiency> proficiencies = new ArrayList<SBGProficiency>();
+    private List<SBGAssignmentReport> gradedAssignments = new ArrayList<SBGAssignmentReport>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,27 +35,20 @@ public class SBGOutcome {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "sbgrecord_id"), inverseJoinColumns = @JoinColumn(name = "sbgassignmentreport_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(joinColumns = @JoinColumn(name = "outcome_id"), inverseJoinColumns = @JoinColumn(name = "proficiency_id"))
     @XmlTransient
-    public List<SBGProficiency> getProficiencies() {
-        return proficiencies;
+    public List<SBGAssignmentReport> getGrades() {
+        return gradedAssignments;
     }
 
-    public void setProficiencies(List<SBGProficiency> proficiencies) {
-        this.proficiencies = proficiencies;
+    public void setGrades(List<SBGAssignmentReport> gradedAssignments) {
+        this.gradedAssignments = gradedAssignments;
     }
-    
-    public void addProficiency(SBGProficiency p) {
-        this.proficiencies.add(p);
+
+    public void addAssignmentReport(SBGAssignmentReport a) {
+        this.gradedAssignments.add(a);
     }
+
 }

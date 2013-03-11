@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SBGProficiency {
     private Long id;
     private String description;
-    private Integer grade;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,13 +28,5 @@ public class SBGProficiency {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
     }
 }

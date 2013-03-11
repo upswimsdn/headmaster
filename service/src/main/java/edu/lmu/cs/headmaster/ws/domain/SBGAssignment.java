@@ -23,6 +23,7 @@ public class SBGAssignment {
     private String title;
     private DateTime assignedDate;
     private DateTime dueDate;
+    private Boolean active;
     private List<SBGProficiency> proficiencies;
 
     @Id
@@ -60,6 +61,14 @@ public class SBGAssignment {
 
     public void setDueDate(DateTime dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @ManyToMany
