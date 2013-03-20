@@ -112,11 +112,6 @@
         autowire="byName"
     />
 
-    <bean id="SBGRubricDaoImpl"
-        class="edu.lmu.cs.headmaster.ws.dao.SBGRubricDaoHibernateImpl"
-        autowire="byName"
-    />
-
     <bean id="studentService"
         class="edu.lmu.cs.headmaster.ws.service.StudentServiceImpl">
         <constructor-arg ref="studentDao"/>
@@ -186,18 +181,4 @@
             </list>
         </property>
     </bean>
-
-    <bean id="rubricDao" class="org.springframework.aop.framework.ProxyFactoryBean">
-        <property name="proxyInterfaces">
-            <value>edu.lmu.cs.headmaster.ws.dao.SBGRubricDao</value>
-        </property>
-
-        <property name="interceptorNames">
-            <list>
-                <value>hibernateInterceptor</value>
-                <value>SBGRubricDaoImpl</value>
-            </list>
-        </property>
-    </bean>
-
 </beans>

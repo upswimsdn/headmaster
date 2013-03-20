@@ -6,12 +6,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,6 +43,7 @@ public class Course {
     private Integer classSize;
     private String instructor;
     private List<Student> enrolledStudents = new ArrayList<Student>();
+    private SBGRubric rubric;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -162,5 +165,13 @@ public class Course {
 
     public void setClassLength(Duration classLength) {
         this.classLength = classLength;
+    }
+
+    public SBGRubric getRubric() {
+        return rubric;
+    }
+
+    public void setRubric(SBGRubric rubric) {
+        this.rubric = rubric;
     }
 }

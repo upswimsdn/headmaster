@@ -25,6 +25,15 @@ public class SBGOutcome {
     private String description;
     private List<SBGProficiency> proficiencies = new ArrayList<SBGProficiency>();
 
+    public SBGOutcome() {
+
+    }
+
+    public SBGOutcome(String description, SBGProficiency proficiency) {
+        this.description = description;
+        this.proficiencies.add(proficiency);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlAttribute
@@ -43,7 +52,7 @@ public class SBGOutcome {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(joinColumns = @JoinColumn(name = "outcome_id"), inverseJoinColumns = @JoinColumn(name = "proficiency_id"))
@@ -55,7 +64,7 @@ public class SBGOutcome {
     public void setProficiencies(List<SBGProficiency> proficiencies) {
         this.proficiencies = proficiencies;
     }
-    
+
     public void addProficiency(SBGProficiency p) {
         this.proficiencies.add(p);
     }

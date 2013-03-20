@@ -12,6 +12,14 @@ public class SBGProficiency {
     private Long id;
     private String description;
 
+    public SBGProficiency() {
+
+    }
+
+    public SBGProficiency(String description) {
+        this.description = description;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {

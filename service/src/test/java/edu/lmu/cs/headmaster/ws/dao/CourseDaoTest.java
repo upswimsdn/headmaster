@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
+import edu.lmu.cs.headmaster.ws.domain.SBGOutcome;
+import edu.lmu.cs.headmaster.ws.domain.SBGProficiency;
+import edu.lmu.cs.headmaster.ws.domain.SBGRubric;
 import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.types.Term;
 import edu.lmu.cs.headmaster.ws.util.ApplicationContextTest;
@@ -42,8 +45,9 @@ public class CourseDaoTest extends ApplicationContextTest {
         Assert.assertEquals(DateTimeConstants.FRIDAY, c.getClassTimes().get(2).getDayOfWeek());
         Assert.assertEquals(11, c.getClassTimes().get(2).getHourOfDay());
 
-        Assert.assertEquals(1, c.getEnrolledStudents().size());
+        Assert.assertEquals(2, c.getEnrolledStudents().size());
         Assert.assertEquals(Long.valueOf(1000000L), c.getEnrolledStudents().get(0).getId());
+        Assert.assertEquals(Long.valueOf(1000001L), c.getEnrolledStudents().get(1).getId());
 
         Assert.assertEquals(c.getClassLength().getMillis(), 3000000L);
     }
@@ -65,14 +69,14 @@ public class CourseDaoTest extends ApplicationContextTest {
     @Test
     public void testEnrollingNewStudentToCourse() {
         Course beforeCourse = courseDao.getCourseById(100001L);
-        Assert.assertEquals(1, beforeCourse.getEnrolledStudents().size());
+        Assert.assertEquals(2, beforeCourse.getEnrolledStudents().size());
         Student student = new Student();
-        student.setId(1000001L);
+        student.setId(1000002L);
         beforeCourse.getEnrolledStudents().add(student);
         courseDao.createOrUpdateCourse(beforeCourse);
         Course afterCourse = courseDao.getCourseById(100001L);
-        Assert.assertEquals(2, afterCourse.getEnrolledStudents().size());
-        Assert.assertEquals(Long.valueOf(1000001L), afterCourse.getEnrolledStudents().get(1).getId());
+        Assert.assertEquals(3, afterCourse.getEnrolledStudents().size());
+        Assert.assertEquals(Long.valueOf(1000002L), afterCourse.getEnrolledStudents().get(2).getId());
     }
 
     @Test
@@ -179,4 +183,55 @@ public class CourseDaoTest extends ApplicationContextTest {
         Assert.assertEquals(0, courses.size());
     }
 
+    /*
+     * *********************
+     * Testing for SBGRubric*********************
+     */
+
+    @Test
+    public void testCreateNewSBGRubricForCourse() {
+        Course course = courseDao.getCourseById(100002L);
+        SBGRubric rubric = new SBGRubric();
+        SBGProficiency proficiency = new SBGProficiency("Herk a derr");
+        SBGOutcome outcome = new SBGOutcome("Derk a herr", proficiency);
+        rubric.addOutcome(outcome);
+        course.setRubric(rubric);
+        courseDao.createOrUpdateCourse(course);
+        Course after = courseDao.getCourseById(100002L);
+        SBGRubric r = after.getRubric();
+        Assert.assertEquals(1, r.getOutcomes().size());
+        Assert.assertEquals("Derk a herr", r.getOutcomes().get(0).getDescription());
+        Assert.assertEquals("Herk a derr", r.getOutcomes().get(0).getProficiencies().get(0).getDescription());
+    }
+
+    @Test
+    public void testUpdateSBGRubricWithNewProficiency() {
+        Course course = courseDao.getCourseById(100001L);
+        SBGRubric before = course.getRubric();
+        List<SBGOutcome> o = before.getOutcomes();
+        Assert.assertEquals(1, o.size());
+        Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
+        Assert.assertEquals(3, o.get(0).getProficiencies().size());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getProficiencies().get(0).getDescription());
+        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getProficiencies().get(1).getDescription());
+        Assert.assertEquals("Use grep to the output of another program", o.get(0).getProficiencies().get(2).getDescription());
+
+        o.get(0).addProficiency(new SBGProficiency("Sexy shell"));
+        before.setOutcomes(o);
+        course.setRubric(before);
+        courseDao.createOrUpdateCourse(course);
+        
+        course = courseDao.getCourseById(100001L);
+        SBGRubric after = course.getRubric();
+        o = after.getOutcomes();
+        Assert.assertEquals(1, o.size());
+        Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
+        Assert.assertEquals(4, o.get(0).getProficiencies().size());
+        Assert.assertEquals("Sexy shell", o.get(0).getProficiencies().get(0).getDescription());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getProficiencies().get(1).getDescription());
+        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getProficiencies().get(2).getDescription());
+        Assert.assertEquals("Use grep to the output of another program", o.get(0).getProficiencies().get(3).getDescription());
+
+
+    }
 }
