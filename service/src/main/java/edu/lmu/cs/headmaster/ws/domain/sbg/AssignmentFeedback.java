@@ -59,7 +59,7 @@ public class AssignmentFeedback {
     }
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name = "sbgassignmentreport_id"), inverseJoinColumns = @JoinColumn(name = "sbggrade_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "feedback_id"), inverseJoinColumns = @JoinColumn(name = "outcomeevaluation_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
     @XmlTransient
     public List<OutcomeEvaluation> getGrades() {

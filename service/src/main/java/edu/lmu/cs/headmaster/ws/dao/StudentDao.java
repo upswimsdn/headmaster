@@ -2,6 +2,7 @@ package edu.lmu.cs.headmaster.ws.dao;
 
 import java.util.List;
 
+import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.domain.Event;
 import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.types.Term;
@@ -54,6 +55,11 @@ public interface StudentDao {
      * Results are returned in alphabetical order.
      */
     List<String> getMatchingDisciplines(String query, int skip, int max);
+    
+    /**
+     * Returns the courses the student is currently enrolled in.
+     */
+    List<Course> getEnrolledCoursesById(Long id);
 
     /**
      * Saves the given student, which should have a null id.

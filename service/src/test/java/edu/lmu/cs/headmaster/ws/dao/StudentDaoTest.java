@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.domain.Event;
 import edu.lmu.cs.headmaster.ws.domain.GPA;
 import edu.lmu.cs.headmaster.ws.domain.Major;
@@ -433,7 +434,12 @@ public class StudentDaoTest extends ApplicationContextTest {
         Assert.assertEquals(2, students.size());
         Assert.assertEquals(Long.valueOf(1000000L), students.get(0).getId());
         Assert.assertEquals(Long.valueOf(1000001L), students.get(1).getId());
-
-        
+    }
+    
+    @Test
+    public void testGetEnrolledCoursesByStudentId() {
+        List<Course> courses = studentDao.getEnrolledCoursesById(1000000L);
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100001L), courses.get(0).getId());
     }
 }

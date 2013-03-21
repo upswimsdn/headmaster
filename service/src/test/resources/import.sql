@@ -80,3 +80,5 @@ insert into objective_outcome(objective_id, outcome_id)  values(100001, 100002);
 insert into objective_outcome(objective_id, outcome_id)  values(100001, 100003);
 
 insert into course_objective(course_id, objectives_id) values(100001, 100001);
+
+-- Test fixtures for student SBG Grades

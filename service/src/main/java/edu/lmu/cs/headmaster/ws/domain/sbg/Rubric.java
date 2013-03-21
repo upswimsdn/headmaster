@@ -20,7 +20,7 @@ public class Rubric {
     private List<Assignment> assignments = new ArrayList<Assignment>();
     private GradingStrategy gradingMethod;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<Objective> getObjectives() {
         return objectives;
@@ -30,7 +30,7 @@ public class Rubric {
         this.objectives = objectives;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<Assignment> getAssignments() {
         return assignments;

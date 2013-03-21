@@ -91,9 +91,8 @@ public class Student {
     }
 
     /**
-     * Indicates whether a student is still in the program or institution under
-     * which this installation of Headmaster is running. Better approach than
-     * having to delete the student.
+     * Indicates whether a student is still in the program or institution under which this installation of Headmaster is
+     * running. Better approach than having to delete the student.
      */
     public Boolean isActive() {
         return active;
@@ -189,8 +188,8 @@ public class Student {
         this.entryYear = entryYear;
     }
 
-    @Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-    @XmlJavaTypeAdapter(value=DateTimeXmlAdapter.class)
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @XmlJavaTypeAdapter(value = DateTimeXmlAdapter.class)
     public DateTime getHonorsEntryDate() {
         return honorsEntryDate;
     }
@@ -389,8 +388,8 @@ public class Student {
         this.thesisTitle = thesisTitle;
     }
 
-    @Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-    @XmlJavaTypeAdapter(value=DateTimeXmlAdapter.class)
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @XmlJavaTypeAdapter(value = DateTimeXmlAdapter.class)
     public DateTime getThesisSubmissionDate() {
         return thesisSubmissionDate;
     }
@@ -449,16 +448,17 @@ public class Student {
     @LazyCollection(LazyCollectionOption.FALSE)
     @Lob
     @OrderColumn
-	public List<String> getFoodPreference() {
-		return foodPreference;
-	}
+    public List<String> getFoodPreference() {
+        return foodPreference;
+    }
 
-	public void setFoodPreference(List<String> foodPreference) {
-		this.foodPreference = foodPreference;
-	}
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "enrolledStudents")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@XmlTransient
+    public void setFoodPreference(List<String> foodPreference) {
+        this.foodPreference = foodPreference;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "enrolledStudents")
+    @XmlTransient
+    // Enrolled courses will not be lazily loaded as they reference back to students
     public List<Course> getEnrolledCourses() {
         return enrolledCourses;
     }

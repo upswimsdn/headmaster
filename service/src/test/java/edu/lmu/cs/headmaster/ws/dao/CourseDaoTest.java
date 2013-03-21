@@ -253,4 +253,22 @@ public class CourseDaoTest extends ApplicationContextTest {
         Assert.assertEquals(1, r.getAssignments().size());
         Assert.assertEquals("Successfully SSH tunnel into a machine", r.getAssignments().get(0).getOutcomes().get(0).getDescription());
     }
+    
+    // Embeddables can't be deleted, the values are only set to null
+    @Test
+    public void testDeleteRubricFromCourse() {
+        Course course = courseDao.getCourseById(100001L);
+        List<Objective> o = course.getRubric().getObjectives();
+        Assert.assertEquals(1, o.size());
+        Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
+        Assert.assertEquals(3, o.get(0).getOutcomes().size());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getOutcomes().get(0).getDescription());
+        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getOutcomes().get(1).getDescription());
+        Assert.assertEquals("Use grep to the output of another program", o.get(0).getOutcomes().get(2).getDescription());
+        course.setRubric(null);
+        courseDao.createOrUpdateCourse(course);
+        course = courseDao.getCourseById(100001L);
+        Assert.assertEquals(0, course.getRubric().getObjectives().size());
+        Assert.assertEquals(0, course.getRubric().getAssignments().size());
+    }
 }

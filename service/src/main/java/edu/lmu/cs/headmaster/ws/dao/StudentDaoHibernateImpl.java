@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import edu.lmu.cs.headmaster.ws.dao.util.QueryBuilder;
+import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.domain.Event;
 import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.types.Term;
@@ -82,6 +83,16 @@ public class StudentDaoHibernateImpl extends HibernateDaoSupport implements Stud
                 .setFirstResult(skip)
                 .setMaxResults(max)
                 .list();
+    }
+    
+    @Override
+    public List<Course> getEnrolledCoursesById(Long id) {
+        Student student = (Student) getSession().createQuery(
+                "from Student s left join fetch s.enrolledCourses where s.id = :id")
+                .setParameter("id", id)
+                .uniqueResult();
+
+        return (student == null) ? null : student.getEnrolledCourses();
     }
 
     @Override
