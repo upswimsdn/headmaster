@@ -69,14 +69,14 @@ insert into course_classtimes(course_id, classtimes) values(100001, '2013-03-22 
 insert into course_student(course_id, student_id) values(100001, 1000000);
 insert into course_student(course_id, student_id) values(100001, 1000001);
 
-insert into sbgoutcome(id, description) values(100001, 'Become adept at using a CLI');
+insert into objective(id, description) values(100001, 'Become adept at using a CLI');
 
-insert into sbgproficiency(id, description) values(100001, 'Successfully SSH tunnel into a machine');
-insert into sbgproficiency(id, description) values(100002, 'Pipeline outputs between various programs');
-insert into sbgproficiency(id, description) values(100003, 'Use grep to the output of another program');
+insert into outcome(id, description) values(100001, 'Successfully SSH tunnel into a machine');
+insert into outcome(id, description) values(100002, 'Pipeline outputs between various programs');
+insert into outcome(id, description) values(100003, 'Use grep to the output of another program');
 
-insert into sbgoutcome_sbgproficiency(outcome_id, proficiency_id) values(100001, 100001);
-insert into sbgoutcome_sbgproficiency(outcome_id, proficiency_id) values(100001, 100002);
-insert into sbgoutcome_sbgproficiency(outcome_id, proficiency_id) values(100001, 100003);
+insert into objective_outcome(objective_id, outcome_id) values(100001, 100001);
+insert into objective_outcome(objective_id, outcome_id)  values(100001, 100002);
+insert into objective_outcome(objective_id, outcome_id)  values(100001, 100003);
 
-insert into course_sbgoutcome(course_id, outcomes_id) values(100001, 100001);
+insert into course_objective(course_id, objectives_id) values(100001, 100001);

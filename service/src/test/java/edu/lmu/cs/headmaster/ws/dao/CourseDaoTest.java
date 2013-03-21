@@ -11,10 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
-import edu.lmu.cs.headmaster.ws.domain.SBGOutcome;
-import edu.lmu.cs.headmaster.ws.domain.SBGProficiency;
-import edu.lmu.cs.headmaster.ws.domain.SBGRubric;
 import edu.lmu.cs.headmaster.ws.domain.Student;
+import edu.lmu.cs.headmaster.ws.domain.sbg.Objective;
+import edu.lmu.cs.headmaster.ws.domain.sbg.Outcome;
+import edu.lmu.cs.headmaster.ws.domain.sbg.Rubric;
 import edu.lmu.cs.headmaster.ws.types.Term;
 import edu.lmu.cs.headmaster.ws.util.ApplicationContextTest;
 
@@ -191,46 +191,46 @@ public class CourseDaoTest extends ApplicationContextTest {
     @Test
     public void testCreateNewSBGRubricForCourse() {
         Course course = courseDao.getCourseById(100002L);
-        SBGRubric rubric = new SBGRubric();
-        SBGProficiency proficiency = new SBGProficiency("Herk a derr");
-        SBGOutcome outcome = new SBGOutcome("Derk a herr", proficiency);
+        Rubric rubric = new Rubric();
+        Outcome proficiency = new Outcome("Herk a derr");
+        Objective outcome = new Objective("Derk a herr", proficiency);
         rubric.addOutcome(outcome);
         course.setRubric(rubric);
         courseDao.createOrUpdateCourse(course);
         Course after = courseDao.getCourseById(100002L);
-        SBGRubric r = after.getRubric();
-        Assert.assertEquals(1, r.getOutcomes().size());
-        Assert.assertEquals("Derk a herr", r.getOutcomes().get(0).getDescription());
-        Assert.assertEquals("Herk a derr", r.getOutcomes().get(0).getProficiencies().get(0).getDescription());
+        Rubric r = after.getRubric();
+        Assert.assertEquals(1, r.getObjectives().size());
+        Assert.assertEquals("Derk a herr", r.getObjectives().get(0).getDescription());
+        Assert.assertEquals("Herk a derr", r.getObjectives().get(0).getOutcomes().get(0).getDescription());
     }
 
     @Test
     public void testUpdateSBGRubricWithNewProficiency() {
         Course course = courseDao.getCourseById(100001L);
-        SBGRubric before = course.getRubric();
-        List<SBGOutcome> o = before.getOutcomes();
+        Rubric before = course.getRubric();
+        List<Objective> o = before.getObjectives();
         Assert.assertEquals(1, o.size());
         Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
-        Assert.assertEquals(3, o.get(0).getProficiencies().size());
-        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getProficiencies().get(0).getDescription());
-        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getProficiencies().get(1).getDescription());
-        Assert.assertEquals("Use grep to the output of another program", o.get(0).getProficiencies().get(2).getDescription());
+        Assert.assertEquals(3, o.get(0).getOutcomes().size());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getOutcomes().get(0).getDescription());
+        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getOutcomes().get(1).getDescription());
+        Assert.assertEquals("Use grep to the output of another program", o.get(0).getOutcomes().get(2).getDescription());
 
-        o.get(0).addProficiency(new SBGProficiency("Sexy shell"));
-        before.setOutcomes(o);
+        o.get(0).addProficiency(new Outcome("Sexy shell"));
+        before.setObjectives(o);
         course.setRubric(before);
         courseDao.createOrUpdateCourse(course);
         
         course = courseDao.getCourseById(100001L);
-        SBGRubric after = course.getRubric();
-        o = after.getOutcomes();
+        Rubric after = course.getRubric();
+        o = after.getObjectives();
         Assert.assertEquals(1, o.size());
         Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
-        Assert.assertEquals(4, o.get(0).getProficiencies().size());
-        Assert.assertEquals("Sexy shell", o.get(0).getProficiencies().get(0).getDescription());
-        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getProficiencies().get(1).getDescription());
-        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getProficiencies().get(2).getDescription());
-        Assert.assertEquals("Use grep to the output of another program", o.get(0).getProficiencies().get(3).getDescription());
+        Assert.assertEquals(4, o.get(0).getOutcomes().size());
+        Assert.assertEquals("Sexy shell", o.get(0).getOutcomes().get(0).getDescription());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getOutcomes().get(1).getDescription());
+        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getOutcomes().get(2).getDescription());
+        Assert.assertEquals("Use grep to the output of another program", o.get(0).getOutcomes().get(3).getDescription());
 
 
     }

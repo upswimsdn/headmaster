@@ -1,4 +1,4 @@
-package edu.lmu.cs.headmaster.ws.domain;
+package edu.lmu.cs.headmaster.ws.domain.sbg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,28 +15,28 @@ import edu.lmu.cs.headmaster.ws.types.GradingStrategy;
 
 @Embeddable
 @XmlRootElement
-public class SBGRubric {
-    private List<SBGOutcome> outcomes = new ArrayList<SBGOutcome>();
-    private List<SBGAssignment> assignments = new ArrayList<SBGAssignment>();
+public class Rubric {
+    private List<Objective> objectives = new ArrayList<Objective>();
+    private List<Assignment> assignments = new ArrayList<Assignment>();
     private GradingStrategy gradingMethod;
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    public List<SBGOutcome> getOutcomes() {
-        return outcomes;
+    public List<Objective> getObjectives() {
+        return objectives;
     }
 
-    public void setOutcomes(List<SBGOutcome> outcomes) {
-        this.outcomes = outcomes;
+    public void setObjectives(List<Objective> objectives) {
+        this.objectives = objectives;
     }
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    public List<SBGAssignment> getAssignments() {
+    public List<Assignment> getAssignments() {
         return assignments;
     }
 
-    public void setAssignments(List<SBGAssignment> assignments) {
+    public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
     }
 
@@ -48,8 +48,8 @@ public class SBGRubric {
         this.gradingMethod = gradingMethod;
     }
     
-    public void addOutcome(SBGOutcome outcome) {
-        this.outcomes.add(outcome);
+    public void addOutcome(Objective outcome) {
+        this.objectives.add(outcome);
     }
 
 }

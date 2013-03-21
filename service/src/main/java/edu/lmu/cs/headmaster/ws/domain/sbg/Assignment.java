@@ -1,4 +1,4 @@
-package edu.lmu.cs.headmaster.ws.domain;
+package edu.lmu.cs.headmaster.ws.domain.sbg;
 
 import java.util.List;
 
@@ -18,13 +18,13 @@ import org.joda.time.DateTime;
 
 @Entity
 @XmlRootElement
-public class SBGAssignment {
+public class Assignment {
     private Long id;
     private String title;
     private String description;
     private DateTime assignedDate;
     private DateTime dueDate;
-    private List<SBGProficiency> proficiencies;
+    private List<Outcome> proficiencies;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -74,11 +74,11 @@ public class SBGAssignment {
     @ManyToMany
     @LazyCollection(LazyCollectionOption.TRUE)
     @XmlTransient
-    public List<SBGProficiency> getProficiencies() {
+    public List<Outcome> getProficiencies() {
         return proficiencies;
     }
 
-    public void setProficiencies(List<SBGProficiency> proficiencies) {
+    public void setProficiencies(List<Outcome> proficiencies) {
         this.proficiencies = proficiencies;
     }
 }

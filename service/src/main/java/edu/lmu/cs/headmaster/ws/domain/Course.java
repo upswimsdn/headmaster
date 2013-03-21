@@ -25,6 +25,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
+import edu.lmu.cs.headmaster.ws.domain.sbg.Rubric;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 @Entity
@@ -43,7 +44,7 @@ public class Course {
     private Integer classSize;
     private String instructor;
     private List<Student> enrolledStudents = new ArrayList<Student>();
-    private SBGRubric rubric;
+    private Rubric rubric;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -167,11 +168,11 @@ public class Course {
         this.classLength = classLength;
     }
 
-    public SBGRubric getRubric() {
+    public Rubric getRubric() {
         return rubric;
     }
 
-    public void setRubric(SBGRubric rubric) {
+    public void setRubric(Rubric rubric) {
         this.rubric = rubric;
     }
 }

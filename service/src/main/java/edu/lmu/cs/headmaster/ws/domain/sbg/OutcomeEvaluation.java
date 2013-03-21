@@ -1,4 +1,4 @@
-package edu.lmu.cs.headmaster.ws.domain;
+package edu.lmu.cs.headmaster.ws.domain.sbg;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class SBGGrade {
+public class OutcomeEvaluation {
     private Long id;
-    private SBGProficiency proficiency;
+    private Outcome outcome;
     private String comment;
     private Integer grade;
 
@@ -28,12 +28,12 @@ public class SBGGrade {
     }
 
     @Lob
-    public SBGProficiency getProficiency() {
-        return proficiency;
+    public Outcome getOutcome() {
+        return outcome;
     }
 
-    public void setProficiency(SBGProficiency proficiency) {
-        this.proficiency = proficiency;
+    public void setOutcome(Outcome proficiency) {
+        this.outcome = proficiency;
     }
 
     public String getComment() {

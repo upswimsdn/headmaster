@@ -1,4 +1,4 @@
-package edu.lmu.cs.headmaster.ws.domain;
+package edu.lmu.cs.headmaster.ws.domain.sbg;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,15 +8,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class SBGProficiency {
+public class Outcome {
     private Long id;
     private String description;
+    private Integer orderIndex;
 
-    public SBGProficiency() {
+    public Outcome() {
 
     }
 
-    public SBGProficiency(String description) {
+    public Outcome(String description) {
         this.description = description;
     }
 
@@ -37,4 +38,13 @@ public class SBGProficiency {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Integer getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(Integer orderIndex) {
+        this.orderIndex = orderIndex;
+    }
+
 }

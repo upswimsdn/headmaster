@@ -1,4 +1,4 @@
-package edu.lmu.cs.headmaster.ws.domain;
+package edu.lmu.cs.headmaster.ws.domain.sbg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @XmlRootElement
-public class SBGRecord {
+public class AssignmentRecord {
     private Long id;
-    private List<SBGAssignmentReport> gradedAssignments = new ArrayList<SBGAssignmentReport>();
+    private List<AssignmentFeedback> feedback = new ArrayList<AssignmentFeedback>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,19 +36,19 @@ public class SBGRecord {
     }
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name = "sbgrecord_id"), inverseJoinColumns = @JoinColumn(name = "sbgassignmentreport_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "assignmentrecord_id"), inverseJoinColumns = @JoinColumn(name = "feedback_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
     @XmlTransient
-    public List<SBGAssignmentReport> getGrades() {
-        return gradedAssignments;
+    public List<AssignmentFeedback> getGrades() {
+        return feedback;
     }
 
-    public void setGrades(List<SBGAssignmentReport> gradedAssignments) {
-        this.gradedAssignments = gradedAssignments;
+    public void setGrades(List<AssignmentFeedback> gradedAssignments) {
+        this.feedback = gradedAssignments;
     }
 
-    public void addAssignmentReport(SBGAssignmentReport a) {
-        this.gradedAssignments.add(a);
+    public void addAssignmentReport(AssignmentFeedback a) {
+        this.feedback.add(a);
     }
 
 }

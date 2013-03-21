@@ -1,4 +1,4 @@
-package edu.lmu.cs.headmaster.ws.domain;
+package edu.lmu.cs.headmaster.ws.domain.sbg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,18 +20,19 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @XmlRootElement
-public class SBGOutcome {
+public class Objective {
     private Long id;
     private String description;
-    private List<SBGProficiency> proficiencies = new ArrayList<SBGProficiency>();
+    private List<Outcome> outcomes = new ArrayList<Outcome>();
+    private Integer orderIndex;
 
-    public SBGOutcome() {
+    public Objective() {
 
     }
 
-    public SBGOutcome(String description, SBGProficiency proficiency) {
+    public Objective(String description, Outcome proficiency) {
         this.description = description;
-        this.proficiencies.add(proficiency);
+        this.outcomes.add(proficiency);
     }
 
     @Id
@@ -55,17 +56,27 @@ public class SBGOutcome {
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(joinColumns = @JoinColumn(name = "outcome_id"), inverseJoinColumns = @JoinColumn(name = "proficiency_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "objective_id"), inverseJoinColumns = @JoinColumn(name = "outcome_id"))
     @XmlTransient
-    public List<SBGProficiency> getProficiencies() {
-        return proficiencies;
+    public List<Outcome> getOutcomes() {
+        return outcomes;
     }
 
-    public void setProficiencies(List<SBGProficiency> proficiencies) {
-        this.proficiencies = proficiencies;
+    public void setOutcomes(List<Outcome> outcomes) {
+        this.outcomes = outcomes;
     }
 
-    public void addProficiency(SBGProficiency p) {
-        this.proficiencies.add(p);
+    public void addProficiency(Outcome p) {
+        this.outcomes.add(p);
     }
+
+    public Integer getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(Integer orderIndex) {
+        this.orderIndex = orderIndex;
+    }
+    
+    
 }

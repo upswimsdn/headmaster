@@ -1,4 +1,4 @@
-package edu.lmu.cs.headmaster.ws.domain;
+package edu.lmu.cs.headmaster.ws.domain.sbg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +23,11 @@ import org.joda.time.DateTime;
 
 @Entity
 @XmlRootElement
-public class SBGAssignmentReport {
+public class AssignmentFeedback {
     private Long id;
-    private SBGAssignment assignment;
+    private Assignment assignment;
     private DateTime submissionDate;
-    private List<SBGGrade> grades = new ArrayList<SBGGrade>();
+    private List<OutcomeEvaluation> grades = new ArrayList<OutcomeEvaluation>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,11 +41,11 @@ public class SBGAssignmentReport {
     }
     
     @Lob
-    public SBGAssignment getAssignment() {
+    public Assignment getAssignment() {
         return assignment;
     }
 
-    public void setAssignment(SBGAssignment assignment) {
+    public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
 
@@ -62,11 +62,11 @@ public class SBGAssignmentReport {
     @JoinTable(joinColumns = @JoinColumn(name = "sbgassignmentreport_id"), inverseJoinColumns = @JoinColumn(name = "sbggrade_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
     @XmlTransient
-    public List<SBGGrade> getGrades() {
+    public List<OutcomeEvaluation> getGrades() {
         return grades;
     }
 
-    public void setGrades(List<SBGGrade> grades) {
+    public void setGrades(List<OutcomeEvaluation> grades) {
         this.grades = grades;
     }
 }
