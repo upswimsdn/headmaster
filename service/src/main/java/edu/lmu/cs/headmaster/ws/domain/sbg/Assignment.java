@@ -1,5 +1,6 @@
 package edu.lmu.cs.headmaster.ws.domain.sbg;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class Assignment {
     private String description;
     private DateTime assignedDate;
     private DateTime dueDate;
-    private List<Outcome> proficiencies;
+    private List<Outcome> outcomes = new ArrayList<Outcome>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -72,13 +73,17 @@ public class Assignment {
     }
 
     @ManyToMany
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @XmlTransient
-    public List<Outcome> getProficiencies() {
-        return proficiencies;
+    public List<Outcome> getOutcomes() {
+        return outcomes;
     }
 
-    public void setProficiencies(List<Outcome> proficiencies) {
-        this.proficiencies = proficiencies;
+    public void setOutcomes(List<Outcome> outcomes) {
+        this.outcomes = outcomes;
+    }
+    
+    public void addOutcome(Outcome o) {
+        this.outcomes.add(o);
     }
 }

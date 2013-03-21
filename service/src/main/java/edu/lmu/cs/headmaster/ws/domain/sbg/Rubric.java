@@ -51,5 +51,9 @@ public class Rubric {
     public void addOutcome(Objective outcome) {
         this.objectives.add(outcome);
     }
+    
+    public void addAssignment(Assignment assignment) {
+        this.assignments.add(assignment);
+    }
 
 }

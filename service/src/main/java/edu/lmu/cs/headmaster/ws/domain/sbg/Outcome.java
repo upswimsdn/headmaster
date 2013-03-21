@@ -46,5 +46,4 @@ public class Outcome {
     public void setOrderIndex(Integer orderIndex) {
         this.orderIndex = orderIndex;
     }
-
 }
