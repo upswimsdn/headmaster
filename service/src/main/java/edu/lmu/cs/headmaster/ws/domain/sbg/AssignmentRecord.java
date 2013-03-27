@@ -36,14 +36,13 @@ public class AssignmentRecord {
     }
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name = "assignmentrecord_id"), inverseJoinColumns = @JoinColumn(name = "feedback_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "record_id"), inverseJoinColumns = @JoinColumn(name = "feedback_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
-    @XmlTransient
-    public List<AssignmentFeedback> getGrades() {
+    public List<AssignmentFeedback> getFeedback() {
         return feedback;
     }
 
-    public void setGrades(List<AssignmentFeedback> gradedAssignments) {
+    public void setFeedback(List<AssignmentFeedback> gradedAssignments) {
         this.feedback = gradedAssignments;
     }
 

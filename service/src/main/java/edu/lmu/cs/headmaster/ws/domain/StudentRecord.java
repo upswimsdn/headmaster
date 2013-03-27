@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,9 +14,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import edu.lmu.cs.headmaster.ws.domain.sbg.AssignmentRecord;
+
 /**
- * A StudentRecord holds student properties or information that should only be
- * seen by more privileged users.
+ * A StudentRecord holds student properties or information that should only be seen by more privileged users.
  */
 @Embeddable
 @XmlRootElement
@@ -29,6 +32,7 @@ public class StudentRecord {
     private Double cumulativeGpa;
     private String academicStatus;
     private List<GPA> grades = new ArrayList<GPA>();
+    private List<AssignmentRecord> sbgGrades = new ArrayList<AssignmentRecord>();
 
     public String getSchoolId() {
         return schoolId;
@@ -103,6 +107,17 @@ public class StudentRecord {
 
     public void setGrades(List<GPA> grades) {
         this.grades = grades;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "record_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    public List<AssignmentRecord> getSbgGrades() {
+        return sbgGrades;
+    }
+
+    public void setSbgGrades(List<AssignmentRecord> sbgGrades) {
+        this.sbgGrades = sbgGrades;
     }
 
 }

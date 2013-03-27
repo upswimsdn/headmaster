@@ -81,4 +81,18 @@ insert into objective_outcome(objective_id, outcome_id)  values(100001, 100003);
 
 insert into course_objective(course_id, objectives_id) values(100001, 100001);
 
+insert into assignment(id, title, description) values(100001, 'Assignment 0326', 'Do some stuff');
+insert into assignment_outcome(assignment_id, outcomes_id) values(100001, 100001);
+insert into assignment_outcome(assignment_id, outcomes_id) values(100001, 100003);
+insert into course_assignment(course_id, assignments_id) values(100002, 100001);
+
 -- Test fixtures for student SBG Grades
+insert into assignmentrecord(id) values(100001);
+insert into outcomeevaluation(id, comment, grade, outcome_id) values(100001, 'Good job!', 3, 100001);
+insert into outcomeevaluation(id, comment, grade, outcome_id) values(100002, 'Needs work...', 1, 100003);
+insert into assignmentfeedback(id, assignment_id) values(100001, 100001);
+insert into assignmentfeedback_outcomeevaluation(feedback_id, outcomeevaluation_id) values(100001, 100001);
+insert into assignmentfeedback_outcomeevaluation(feedback_id, outcomeevaluation_id) values(100001, 100002);
+insert into assignmentrecord_assignmentfeedback (record_id, feedback_id) values (100001, 100001);
+;
+insert into student_assignmentrecord(student_id, record_id) values(1000000, 100001);

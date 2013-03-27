@@ -13,6 +13,8 @@ import edu.lmu.cs.headmaster.ws.domain.Event;
 import edu.lmu.cs.headmaster.ws.domain.GPA;
 import edu.lmu.cs.headmaster.ws.domain.Major;
 import edu.lmu.cs.headmaster.ws.domain.Student;
+import edu.lmu.cs.headmaster.ws.domain.sbg.AssignmentFeedback;
+import edu.lmu.cs.headmaster.ws.domain.sbg.AssignmentRecord;
 import edu.lmu.cs.headmaster.ws.types.Term;
 import edu.lmu.cs.headmaster.ws.util.ApplicationContextTest;
 
@@ -441,5 +443,22 @@ public class StudentDaoTest extends ApplicationContextTest {
         List<Course> courses = studentDao.getEnrolledCoursesById(1000000L);
         Assert.assertEquals(1, courses.size());
         Assert.assertEquals(Long.valueOf(100001L), courses.get(0).getId());
+    }
+    
+    /*
+     * Tests for SBG Student records
+     */
+    @Test
+    public void testCheckStudentSBGGradeRecord() {
+        Student student = studentDao.getStudentById(1000000L);
+        Assert.assertEquals(1, student.getRecord().getSbgGrades().size());
+        AssignmentRecord r = student.getRecord().getSbgGrades().get(0);
+        Assert.assertEquals(Long.valueOf(100001L), r.getId());
+        Assert.assertEquals(1, r.getFeedback().size());
+        AssignmentFeedback f = r.getFeedback().get(0);
+        Assert.assertEquals(Long.valueOf(100001L), f.getAssignment().getId());
+        Assert.assertEquals(2, f.getGrades().size());
+        Assert.assertEquals("Good job!", f.getGrades().get(0).getComment());
+        Assert.assertEquals("Needs work...", f.getGrades().get(1).getComment());
     }
 }

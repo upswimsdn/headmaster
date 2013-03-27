@@ -10,8 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -39,8 +39,8 @@ public class AssignmentFeedback {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    @Lob
+
+    @OneToOne
     public Assignment getAssignment() {
         return assignment;
     }
