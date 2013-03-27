@@ -15,6 +15,8 @@ import edu.lmu.cs.headmaster.ws.domain.Major;
 import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.domain.sbg.AssignmentFeedback;
 import edu.lmu.cs.headmaster.ws.domain.sbg.AssignmentRecord;
+import edu.lmu.cs.headmaster.ws.domain.sbg.Outcome;
+import edu.lmu.cs.headmaster.ws.domain.sbg.OutcomeEvaluation;
 import edu.lmu.cs.headmaster.ws.types.Term;
 import edu.lmu.cs.headmaster.ws.util.ApplicationContextTest;
 
@@ -460,5 +462,50 @@ public class StudentDaoTest extends ApplicationContextTest {
         Assert.assertEquals(2, f.getGrades().size());
         Assert.assertEquals("Good job!", f.getGrades().get(0).getComment());
         Assert.assertEquals("Needs work...", f.getGrades().get(1).getComment());
+    }
+    
+    @Test
+    public void testUpdatingAssignmentFeedback() {
+        Student student = studentDao.getStudentById(1000000L);
+        Assert.assertEquals(1, student.getRecord().getSbgGrades().size());
+        AssignmentRecord r = student.getRecord().getSbgGrades().get(0);
+        AssignmentFeedback f = r.getFeedback().get(0);
+        OutcomeEvaluation eval = f.getGrades().get(0);
+        Assert.assertEquals("Good job!", eval.getComment());
+        Assert.assertEquals(Long.valueOf(100001L), eval.getId());
+        eval.setComment("Bad job!");
+        
+        studentDao.createOrUpdateStudent(student);
+        Student student2 = studentDao.getStudentById(1000000L);
+        AssignmentRecord r2 = student2.getRecord().getSbgGrades().get(0);
+        AssignmentFeedback f2 = r2.getFeedback().get(0);
+        OutcomeEvaluation eval2 = f2.getGrades().get(0);
+        Assert.assertEquals("Bad job!", eval2.getComment());
+        Assert.assertEquals(Long.valueOf(100001L), eval2.getId());
+    }
+    
+    @Test
+    public void testAddNewOutcomeEvaluationForAssignmentFeedback() {
+        Student student = studentDao.getStudentById(1000000L);
+        AssignmentRecord r = student.getRecord().getSbgGrades().get(0);
+        AssignmentFeedback f = r.getFeedback().get(0);
+        Assert.assertEquals(2, f.getGrades().size());
+        
+        OutcomeEvaluation grade = new OutcomeEvaluation();
+        Outcome o = new Outcome();
+        o.setId(100002L); //Should be 'Pipeline outputs between various programs'
+        grade.setOutcome(o);
+        grade.setComment("Woops");
+        f.getGrades().add(grade);
+        
+        studentDao.createOrUpdateStudent(student);
+        Student student2 = studentDao.getStudentById(1000000L);
+        AssignmentRecord r2 = student2.getRecord().getSbgGrades().get(0);
+        AssignmentFeedback f2 = r2.getFeedback().get(0);
+        Assert.assertEquals(3, f2.getGrades().size());
+        OutcomeEvaluation eval = f2.getGrades().get(0);
+        Assert.assertEquals("Woops", eval.getComment());
+        Assert.assertEquals("Pipeline outputs between various programs", eval.getOutcome().getDescription());
+        Assert.assertEquals(Long.valueOf(100002L), eval.getOutcome().getId());
     }
 }
