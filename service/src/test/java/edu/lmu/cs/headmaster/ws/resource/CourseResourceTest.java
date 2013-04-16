@@ -1,9 +1,11 @@
 package edu.lmu.cs.headmaster.ws.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
 
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.junit.Test;
 
@@ -264,6 +266,19 @@ public class CourseResourceTest extends ResourceTest {
         Course course2 = wr.path("courses/100001").get(Course.class);
         Assert.assertEquals(0, course2.getRubric().getObjectives().size());
         Assert.assertEquals(0, course2.getRubric().getAssignments().size());
+    }
+    
+    @Test
+    public void testGetCoursesByClassTime() {
+        List<Course> courses = wr.path("courses")
+                .queryParam("classTimes", "M-W,1100")
+                .get(new GenericType<List<Course>>(){});
+        Assert.assertEquals(1, courses.size());
+
+        courses = wr.path("courses")
+                .queryParam("classTimes", "W,1200")
+                .get(new GenericType<List<Course>>(){});
+        Assert.assertEquals(0, courses.size());
     }
 
 }
