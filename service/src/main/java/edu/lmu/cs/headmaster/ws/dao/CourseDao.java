@@ -5,7 +5,6 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
-import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public interface CourseDao {

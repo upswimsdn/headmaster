@@ -14,13 +14,14 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.joda.time.DateTime;
-
 import edu.lmu.cs.headmaster.ws.domain.Course;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface CourseResource {
+    
+    static final String COURSE_NOT_FOUND = "course.not.found";
+    
     @GET
     List<Course> getCourses(@QueryParam("discipline") String discipline, @QueryParam("classTimes") String classTimes,
             @QueryParam("instructor") String instructor, @QueryParam("maxClassSize") Integer maxClassSize,

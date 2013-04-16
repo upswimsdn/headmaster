@@ -6,18 +6,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -27,6 +25,8 @@ import org.joda.time.Duration;
 
 import edu.lmu.cs.headmaster.ws.domain.sbg.Rubric;
 import edu.lmu.cs.headmaster.ws.types.Term;
+import edu.lmu.cs.headmaster.ws.util.DateTimeXmlAdapter;
+import edu.lmu.cs.headmaster.ws.util.DurationXmlAdapter;
 
 @Entity
 @XmlRootElement
@@ -133,7 +133,6 @@ public class Course {
     @OrderBy("lastName")
     @JoinTable(joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
-    @XmlTransient
     public List<Student> getEnrolledStudents() {
         return enrolledStudents;
     }
@@ -149,6 +148,7 @@ public class Course {
      * of this range and to shave also off seconds or minutes.
      */
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @XmlJavaTypeAdapter(value = DateTimeXmlAdapter.class)
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<DateTime> getClassTimes() {
@@ -160,6 +160,7 @@ public class Course {
     }
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDuration")
+    @XmlJavaTypeAdapter(value = DurationXmlAdapter.class)
     public Duration getClassLength() {
         return classLength;
     }
