@@ -33,6 +33,7 @@ public class AbstractResource {
     public static final String QUERY_REQUIRED = "query.required";
     public static final String QUERY_INCOMPLETE = "query.parameters.missing";
     public static final String ARGUMENT_CONFLICT = "argument.conflict";
+    public static final String ID_INCONSISTENT = "ids.do.not.match";
     public static final String MALFORMED_ARGUMENT_DATE = "argument.date.malformed";
     public static final String MISSING_ARGUMENT_DATE = "argument.date.missing";
     public static final String UNSUPPORTED_ENCODING = "encoding.not.supported";

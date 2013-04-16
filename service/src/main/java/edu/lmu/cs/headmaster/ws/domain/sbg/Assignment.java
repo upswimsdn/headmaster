@@ -74,7 +74,6 @@ public class Assignment {
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
-    @XmlTransient
     public List<Outcome> getOutcomes() {
         return outcomes;
     }

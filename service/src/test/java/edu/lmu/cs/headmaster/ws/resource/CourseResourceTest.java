@@ -11,7 +11,10 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
-import edu.lmu.cs.headmaster.ws.domain.Student;
+import edu.lmu.cs.headmaster.ws.domain.sbg.Assignment;
+import edu.lmu.cs.headmaster.ws.domain.sbg.Objective;
+import edu.lmu.cs.headmaster.ws.domain.sbg.Outcome;
+import edu.lmu.cs.headmaster.ws.domain.sbg.Rubric;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public class CourseResourceTest extends ResourceTest {
@@ -178,6 +181,89 @@ public class CourseResourceTest extends ResourceTest {
                 .queryParam("instructor", "asgsad")
                 .get(new GenericType<List<Course>>(){});
         Assert.assertEquals(0, courses.size());
+    }
+
+    @Test
+    public void testCreateNewSBGRubricForExistingCourse() {
+        Course course = wr.path("courses/100002").get(Course.class);
+        Rubric rubric = new Rubric();
+        Outcome outcome = new Outcome("Herk a derr");
+        Objective objective = new Objective("Derk a herr", outcome);
+        rubric.addObjective(objective);
+        course.setRubric(rubric);
+        Assert.assertEquals(1, objective.getOutcomes().size());
+        wr.path("courses/100002").put(course);
+        Course after = wr.path("courses/100002").get(Course.class);
+        Rubric r = after.getRubric();
+        Assert.assertEquals(1, r.getObjectives().size());
+        Assert.assertEquals("Derk a herr", r.getObjectives().get(0).getDescription());
+        Assert.assertEquals("Herk a derr", r.getObjectives().get(0).getOutcomes().get(0).getDescription());
+    }
+
+    @Test
+    public void testUpdateSBGRubricWithNewOutcome() {
+        Course course = wr.path("courses/100001").get(Course.class);
+        Rubric before = course.getRubric();
+        List<Objective> o = before.getObjectives();
+        Assert.assertEquals(1, o.size());
+        Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
+        Assert.assertEquals(3, o.get(0).getOutcomes().size());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getOutcomes().get(0).getDescription());
+        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getOutcomes().get(1).getDescription());
+        Assert.assertEquals("Use grep to the output of another program", o.get(0).getOutcomes().get(2).getDescription());
+
+        o.get(0).addProficiency(new Outcome("Sexy shell"));
+        before.setObjectives(o);
+        course.setRubric(before);
+        wr.path("courses/100001").put(course);
+        
+        course = wr.path("courses/100001").get(Course.class);
+        Rubric after = course.getRubric();
+        o = after.getObjectives();
+        Assert.assertEquals(1, o.size());
+        Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
+        Assert.assertEquals(4, o.get(0).getOutcomes().size());
+        Assert.assertEquals("Sexy shell", o.get(0).getOutcomes().get(0).getDescription());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getOutcomes().get(1).getDescription());
+        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getOutcomes().get(2).getDescription());
+        Assert.assertEquals("Use grep to the output of another program", o.get(0).getOutcomes().get(3).getDescription());
+    }
+
+    @Test
+    public void testCreateAssignmentForRubric() {
+        Course course = wr.path("courses/100001").get(Course.class);
+        Rubric r = course.getRubric();
+        Assert.assertEquals(0, r.getAssignments().size());
+
+        Assignment a = new Assignment();
+        Outcome o = new Outcome();
+        o.setId(100001L);
+        a.addOutcome(o);
+        r.addAssignment(a);
+        course.setRubric(r);
+        wr.path("courses/100001").put(course);
+        
+        Course course2 = wr.path("courses/100001").get(Course.class);
+        r = course2.getRubric();
+        Assert.assertEquals(1, r.getAssignments().size());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", r.getAssignments().get(0).getOutcomes().get(0).getDescription());
+    }
+
+    @Test
+    public void testDeleteRubricFromCourse() {
+        Course course = wr.path("courses/100001").get(Course.class);
+        List<Objective> o = course.getRubric().getObjectives();
+        Assert.assertEquals(1, o.size());
+        Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
+        Assert.assertEquals(3, o.get(0).getOutcomes().size());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getOutcomes().get(0).getDescription());
+        Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getOutcomes().get(1).getDescription());
+        Assert.assertEquals("Use grep to the output of another program", o.get(0).getOutcomes().get(2).getDescription());
+        course.setRubric(null);
+        wr.path("courses/100001").put(course);
+        Course course2 = wr.path("courses/100001").get(Course.class);
+        Assert.assertEquals(0, course2.getRubric().getObjectives().size());
+        Assert.assertEquals(0, course2.getRubric().getAssignments().size());
     }
 
 }

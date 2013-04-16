@@ -195,7 +195,7 @@ public class CourseDaoTest extends ApplicationContextTest {
         Rubric rubric = new Rubric();
         Outcome proficiency = new Outcome("Herk a derr");
         Objective outcome = new Objective("Derk a herr", proficiency);
-        rubric.addOutcome(outcome);
+        rubric.addObjective(outcome);
         course.setRubric(rubric);
         courseDao.createOrUpdateCourse(course);
         Course after = courseDao.getCourseById(100002L);

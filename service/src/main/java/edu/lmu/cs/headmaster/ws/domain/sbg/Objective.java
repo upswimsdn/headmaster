@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -37,7 +36,6 @@ public class Objective {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @XmlAttribute
     public Long getId() {
         return id;
     }
@@ -57,7 +55,6 @@ public class Objective {
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(joinColumns = @JoinColumn(name = "objective_id"), inverseJoinColumns = @JoinColumn(name = "outcome_id"))
-    @XmlTransient
     public List<Outcome> getOutcomes() {
         return outcomes;
     }

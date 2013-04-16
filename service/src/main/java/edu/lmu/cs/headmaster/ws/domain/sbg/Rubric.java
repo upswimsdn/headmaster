@@ -48,8 +48,8 @@ public class Rubric {
         this.gradingMethod = gradingMethod;
     }
     
-    public void addOutcome(Objective outcome) {
-        this.objectives.add(outcome);
+    public void addObjective(Objective objective) {
+        this.objectives.add(objective);
     }
     
     public void addAssignment(Assignment assignment) {

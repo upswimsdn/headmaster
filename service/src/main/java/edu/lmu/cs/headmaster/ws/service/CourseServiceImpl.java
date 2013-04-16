@@ -32,11 +32,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void createOrUpdateCourse(Long id, Course course) {
-        // Not sure if needed, will test...
-        Course currentCourse = courseDao.getCourseById(id);
-        if (currentCourse != null) {
-            course.setEnrolledStudents(currentCourse.getEnrolledStudents());
-        }
         courseDao.createOrUpdateCourse(course);
     }
 

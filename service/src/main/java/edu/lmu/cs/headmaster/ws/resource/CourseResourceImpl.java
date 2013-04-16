@@ -47,8 +47,14 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
 
     @Override
     public Response createOrUpdateCourse(Long id, Course course) {
-        // TODO Auto-generated method stub
-        return null;
+        logServiceCall();
+
+        // The student IDs should match.
+        validate(id.equals(course.getId()), Response.Status.BAD_REQUEST, ID_INCONSISTENT);
+
+        // Dao problems will filter up as exceptions.
+        courseService.createOrUpdateCourse(id, course);
+        return Response.noContent().build();
     }
 
     @Override
