@@ -42,7 +42,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     public List<DateTime> processClassTimeQuery(String query) {
-     // schedule[1] holds the time string
+        // schedule[1] holds the string that is to be parsed for hours and minutes
         String[] schedule = query.split(",");
         String[] requestedDays = schedule[0].split("-");
         List<DateTime> requestedDateTimes = new ArrayList<DateTime>();
@@ -59,7 +59,7 @@ public class CourseServiceImpl implements CourseService {
         int date = retrieveDayInteger(day);
         int hours = Integer.parseInt(timeOfDay.substring(0, 2));
         int minutes = Integer.parseInt(timeOfDay.substring(2));
-        return new DateTime(2013, DateTimeConstants.FEBRUARY, date, hours, minutes, 0, 0);
+        return new DateTime(DEFAULT_YEAR, DEFAULT_MONTH, date, hours, minutes, 0, 0);
     }
 
     public int retrieveDayInteger(String dayString) {
