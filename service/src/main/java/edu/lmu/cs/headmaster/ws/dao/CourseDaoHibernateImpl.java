@@ -7,7 +7,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import edu.lmu.cs.headmaster.ws.dao.util.QueryBuilder;
 import edu.lmu.cs.headmaster.ws.domain.Course;
-import edu.lmu.cs.headmaster.ws.domain.sbg.Rubric;
+import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public class CourseDaoHibernateImpl extends HibernateDaoSupport implements CourseDao {

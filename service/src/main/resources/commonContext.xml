@@ -86,6 +86,11 @@
         class="edu.lmu.cs.headmaster.ws.service.TermServiceImpl">
         <constructor-arg ref="studentDao"/>
     </bean>
+    
+    <bean id="courseService"
+        class="edu.lmu.cs.headmaster.ws.service.CourseServiceImpl">
+        <constructor-arg ref="courseDao" />
+    </bean>
 
     <bean id="userDaoImpl"
         class="edu.lmu.cs.headmaster.ws.dao.UserDaoHibernateImpl"
