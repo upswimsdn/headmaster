@@ -6,7 +6,6 @@ import org.joda.time.DateTime;
 
 import edu.lmu.cs.headmaster.ws.dao.CourseDao;
 import edu.lmu.cs.headmaster.ws.domain.Course;
-import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public class CourseServiceImpl implements CourseService {
@@ -18,10 +17,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCourses(String discipline, List<DateTime> classTimes, String instructor,
+    public List<Course> getCourses(String discipline, String classTimes, String instructor,
             Integer maxClassSize, Integer minClassSize, Term term, Integer year, int skip, int max) {
 
-        return courseDao.getCourses(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year, skip,
+        List<DateTime> schedule = null;
+        return courseDao.getCourses(discipline, schedule, instructor, maxClassSize, minClassSize, term, year, skip,
                 max);
     }
 

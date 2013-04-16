@@ -25,13 +25,18 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
             Integer minClassSize, Term term, Integer year, int skip, int max) {
         logServiceCall();
 
-        // Check that we have atleast on query parameter
+        // Check that we have at least on query parameter
         validate(!(discipline == null && classTimes == null && instructor == null && maxClassSize == null
                 && minClassSize == null && term == null && year == null), Response.Status.BAD_REQUEST, QUERY_REQUIRED);
 
         // Check that both term and year and either present or not present
         validate(checkMutualInclusionOfParameters(term, year), Response.Status.BAD_REQUEST, ARGUMENT_CONFLICT);
-        return null;
+
+        // Check that pagination are within reasonable bounds
+        validatePagination(skip, max, 0, 50);
+
+        return courseService.getCourses(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year,
+                skip, max);
     }
 
     @Override
