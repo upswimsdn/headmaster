@@ -17,6 +17,4 @@ public interface CourseService {
     void createOrUpdateCourse(Long id, Course course);
 
     Course getCourseById(Long id);
-
-    List<Student> getEnrolledStudentsById(Long id);
 }

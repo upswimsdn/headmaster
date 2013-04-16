@@ -45,9 +45,4 @@ public class CourseServiceImpl implements CourseService {
        return courseDao.getCourseById(id);
     }
 
-    @Override
-    public List<Student> getEnrolledStudentsById(Long id) {
-        return courseDao.getCourseById(id).getEnrolledStudents();
-    }
-
 }
