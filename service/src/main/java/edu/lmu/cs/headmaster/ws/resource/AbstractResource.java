@@ -182,4 +182,14 @@ public class AbstractResource {
                 USER_FORBIDDEN);
     }
 
+    protected Boolean checkMutualInclusionOfParameters(Object... args) {
+        Boolean firstIsPresent = args[0] != null;
+        for (Object o : args) {
+            if ((o != null) != firstIsPresent) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

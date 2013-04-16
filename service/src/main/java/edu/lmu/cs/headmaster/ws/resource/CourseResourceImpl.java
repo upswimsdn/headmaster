@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import edu.lmu.cs.headmaster.ws.dao.UserDao;
 import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.service.CourseService;
+import edu.lmu.cs.headmaster.ws.types.Term;
 
 @Path("/courses")
 public class CourseResourceImpl extends AbstractResource implements CourseResource {
@@ -21,8 +22,15 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
 
     @Override
     public List<Course> getCourses(String discipline, String classTimes, String instructor, Integer maxClassSize,
-            Integer minClassSize, String term, Integer year, int skip, int max) {
-        // TODO Auto-generated method stub
+            Integer minClassSize, Term term, Integer year, int skip, int max) {
+        logServiceCall();
+
+        // Check that we have atleast on query parameter
+        validate(!(discipline == null && classTimes == null && instructor == null && maxClassSize == null
+                && minClassSize == null && term == null && year == null), Response.Status.BAD_REQUEST, QUERY_REQUIRED);
+
+        // Check that both term and year and either present or not present
+        validate(checkMutualInclusionOfParameters(term, year), Response.Status.BAD_REQUEST, ARGUMENT_CONFLICT);
         return null;
     }
 

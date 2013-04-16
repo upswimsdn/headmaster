@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
+import edu.lmu.cs.headmaster.ws.types.Term;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,7 +26,7 @@ public interface CourseResource {
     @GET
     List<Course> getCourses(@QueryParam("discipline") String discipline, @QueryParam("classTimes") String classTimes,
             @QueryParam("instructor") String instructor, @QueryParam("maxClassSize") Integer maxClassSize,
-            @QueryParam("minClassSize") Integer minClassSize, @QueryParam("term") String term,
+            @QueryParam("minClassSize") Integer minClassSize, @QueryParam("term") Term term,
             @QueryParam("year") Integer year, @QueryParam("skip") @DefaultValue("0") int skip,
             @QueryParam("max") @DefaultValue("50") int max);
 

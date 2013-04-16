@@ -43,4 +43,32 @@ public class CourseResourceTest extends ResourceTest {
         Assert.assertEquals(404, response.getStatus());
     }
 
+    @Test
+    public void testGetCourseWithNoQueryResponds400() {
+        ClientResponse response = wr.path("courses").get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + AbstractResource.QUERY_REQUIRED, response.getEntity(String.class));
+    }
+
+    @Test
+    public void testMutualInclusionOfTermAndYearQueryParameters() {
+        ClientResponse response = wr.path("courses")
+                .queryParam("term", "FALL")
+                .get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + AbstractResource.ARGUMENT_CONFLICT, response.getEntity(String.class));
+
+        response = wr.path("courses")
+                .queryParam("year", "2012")
+                .get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + AbstractResource.ARGUMENT_CONFLICT, response.getEntity(String.class));
+
+        response = wr.path("courses")
+                .queryParam("term", "SUMMER")
+                .queryParam("year", "2014")
+                .get(ClientResponse.class);
+        Assert.assertTrue(response.getStatus() >= 200);
+    }
+
 }
