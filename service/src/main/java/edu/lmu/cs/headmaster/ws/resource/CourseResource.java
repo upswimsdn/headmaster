@@ -22,7 +22,7 @@ import edu.lmu.cs.headmaster.ws.domain.Course;
 @Produces(MediaType.APPLICATION_JSON)
 public interface CourseResource {
     @GET
-    List<Course> getCourses(@QueryParam("discipline") String discipline, @QueryParam("classTime") List<DateTime> classTimes,
+    List<Course> getCourses(@QueryParam("discipline") String discipline, @QueryParam("classTimes") String classTimes,
             @QueryParam("instructor") String instructor, @QueryParam("maxClassSize") Integer maxClassSize,
             @QueryParam("minClassSize") Integer minClassSize, @QueryParam("term") String term,
             @QueryParam("year") Integer year, @QueryParam("skip") @DefaultValue("0") int skip,

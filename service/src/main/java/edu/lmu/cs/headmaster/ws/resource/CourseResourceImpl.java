@@ -7,13 +7,22 @@ import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
 
+import edu.lmu.cs.headmaster.ws.dao.UserDao;
 import edu.lmu.cs.headmaster.ws.domain.Course;
+import edu.lmu.cs.headmaster.ws.service.CourseService;
 
 @Path("/courses")
-public class CourseResourceImpl implements CourseResource {
+public class CourseResourceImpl extends AbstractResource implements CourseResource {
+    
+    private CourseService courseService;
+    
+    public CourseResourceImpl(UserDao userDao, CourseService courseService) {
+        super(userDao);
+        this.courseService = courseService;
+    }
 
     @Override
-    public List<Course> getCourses(String discipline, List<DateTime> classTimes, String instructor,
+    public List<Course> getCourses(String discipline, String classTimes, String instructor,
             Integer maxClassSize, Integer minClassSize, String term, Integer year, int skip, int max) {
         // TODO Auto-generated method stub
         return null;
@@ -33,7 +42,6 @@ public class CourseResourceImpl implements CourseResource {
 
     @Override
     public Course getCourseById(Long id) {
-        // TODO Auto-generated method stub
         return null;
     }
 
