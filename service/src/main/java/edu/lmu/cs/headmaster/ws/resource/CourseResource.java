@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import org.joda.time.DateTime;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
-import edu.lmu.cs.headmaster.ws.domain.Event;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -30,14 +29,14 @@ public interface CourseResource {
             @QueryParam("max") @DefaultValue("50") int max);
 
     @POST
-    Response createEvent(Course course);
+    Response createCourse(Course course);
 
     @PUT
     @Path("{id}")
-    Response createOrUpdateEvent(@PathParam("id") Long id, Course course);
+    Response createOrUpdateCourse(@PathParam("id") Long id, Course course);
 
     @GET
     @Path("{id}")
-    Event getEventById(@PathParam("id") Long id);
+    Course getCourseById(@PathParam("id") Long id);
 
 }
