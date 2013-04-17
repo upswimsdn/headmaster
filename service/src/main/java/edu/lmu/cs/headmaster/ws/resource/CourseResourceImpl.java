@@ -39,7 +39,7 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
         // Check that pagination are within reasonable bounds
         validatePagination(skip, max, 0, 50);
 
-        // Process and validate the classtime query string
+        // Process and validate the class time query string
         List<DateTime> schedule = null;
 
         if (classTimes != null) {
@@ -60,6 +60,9 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
     @Override
     public Response createCourse(Course course) {
         logServiceCall();
+        
+        // Only faculty/staff are able to create new courses.
+        validatePrivilegedUserCredentials();
 
         validate(course.getId() == null, Response.Status.BAD_REQUEST, CourseResource.COURSE_OVERSPECIFIED);
 
@@ -70,6 +73,9 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
     @Override
     public Response createOrUpdateCourse(Long id, Course course) {
         logServiceCall();
+        
+        // Only faculty/staff are able to update any course information.
+        validatePrivilegedUserCredentials();
 
         // The student IDs should match.
         validate(id.equals(course.getId()), Response.Status.BAD_REQUEST, ID_INCONSISTENT);
