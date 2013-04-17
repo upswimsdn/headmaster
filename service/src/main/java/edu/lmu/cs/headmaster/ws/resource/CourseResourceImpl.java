@@ -46,7 +46,7 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
             schedule = new ArrayList<DateTime>();
             for (String s : dateTimes) {
                 DateTime d = toDateTime(s);
-                verifyDateTimeIsWithinRange(d);
+                validate(verifyDateTimeIsWithinRange(d), Response.Status.BAD_REQUEST, COURSE_CLASSTIME_QUERY_OUT_OF_RANGE);
                 schedule.add(d);
             }
         }

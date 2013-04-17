@@ -61,10 +61,15 @@ insert into researchgrant_student(grant_id, student_id, students_order) values(1
 insert into course(id, instructor, classlength, term, year, classsize) values(100001, 'Dr. Dondi', 'PT3000S', 1, 2014, 20);
 insert into course(id, instructor, term, year, classsize) values(100002, 'Prof. X', 2, 2013, 20);
 insert into course(id, discipline, term, year, classsize) values(100003, 'Computer Science', 1, 2013, 10);
+insert into course(id, instructor, term, year) values (100004, 'Dr. Dondi', 0, 2013);
 
-insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-18 11:00:00');
-insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-20 11:00:00');
-insert into course_classtimes(course_id, classtimes) values(100001, '2013-03-22 11:00:00');
+insert into course_classtimes(course_id, classtimes) values(100004, '2013-02-18T11:00:00');
+insert into course_classtimes(course_id, classtimes) values(100004, '2013-02-20T11:00:00');
+insert into course_classtimes(course_id, classtimes) values(100004, '2013-03-22T12:00:00');
+
+insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-18T11:00:00');
+insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-20T11:00:00');
+insert into course_classtimes(course_id, classtimes) values(100001, '2013-03-22T11:00:00');
 
 insert into course_student(course_id, student_id) values(100001, 1000000);
 insert into course_student(course_id, student_id) values(100001, 1000001);

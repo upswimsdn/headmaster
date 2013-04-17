@@ -115,7 +115,7 @@ public class CourseDaoTest extends ApplicationContextTest {
         times.add(new DateTime(2013, 2, 18, 11, 0, 0, 0));
         times.add(new DateTime(2013, 2, 20, 11, 0, 0, 0));
         List<Course> courses = courseDao.getCourses(null, times, null, null, null, null, null, 0, 10);
-        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(2, courses.size());
 
         times.clear();
         times.add(new DateTime(2013, 2, 20, 12, 0, 0, 0));
@@ -125,7 +125,7 @@ public class CourseDaoTest extends ApplicationContextTest {
         times.add(new DateTime(2013, 2, 20, 12, 0, 0, 0));
         times.add(new DateTime(2013, 2, 18, 11, 0, 0, 0));
         courses = courseDao.getCourses(null, times, null, null, null, null, null, 0, 10);
-        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(2, courses.size());
     }
 
     @Test

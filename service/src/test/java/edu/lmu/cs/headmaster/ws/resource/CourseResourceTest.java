@@ -60,22 +60,15 @@ public class CourseResourceTest extends ResourceTest {
 
     @Test
     public void testMutualInclusionOfTermAndYearQueryParameters() {
-        ClientResponse response = wr.path("courses")
-                .queryParam("term", "FALL")
-                .get(ClientResponse.class);
+        ClientResponse response = wr.path("courses").queryParam("term", "FALL").get(ClientResponse.class);
         Assert.assertEquals(400, response.getStatus());
         Assert.assertEquals("400 " + AbstractResource.ARGUMENT_CONFLICT, response.getEntity(String.class));
 
-        response = wr.path("courses")
-                .queryParam("year", "2012")
-                .get(ClientResponse.class);
+        response = wr.path("courses").queryParam("year", "2012").get(ClientResponse.class);
         Assert.assertEquals(400, response.getStatus());
         Assert.assertEquals("400 " + AbstractResource.ARGUMENT_CONFLICT, response.getEntity(String.class));
 
-        response = wr.path("courses")
-                .queryParam("term", "SUMMER")
-                .queryParam("year", "2014")
-                .get(ClientResponse.class);
+        response = wr.path("courses").queryParam("term", "SUMMER").queryParam("year", "2014").get(ClientResponse.class);
         Assert.assertTrue(response.getStatus() >= 200);
     }
 
@@ -83,7 +76,8 @@ public class CourseResourceTest extends ResourceTest {
     public void testGetCoursesByDiscipline() {
         List<Course> courses = wr.path("courses")
                 .queryParam("discipline", "Computer Science")
-                .get(new GenericType<List<Course>>(){});
+                .get(new GenericType<List<Course>>() {
+                });
         Assert.assertEquals(1, courses.size());
         Assert.assertEquals(Long.valueOf(100003L), courses.get(0).getId());
         Assert.assertEquals("Computer Science", courses.get(0).getDiscipline());
@@ -94,29 +88,27 @@ public class CourseResourceTest extends ResourceTest {
         List<Course> courses = wr.path("courses")
                 .queryParam("term", "SUMMER")
                 .queryParam("year", "2013")
-                .get(new GenericType<List<Course>>(){});
+                .get(new GenericType<List<Course>>() {
+                });
         Assert.assertEquals(1, courses.size());
         Assert.assertEquals(Long.valueOf(100003L), courses.get(0).getId());
         Assert.assertEquals(Term.SUMMER, courses.get(0).getTerm());
         Assert.assertEquals(Integer.valueOf(2013), courses.get(0).getYear());
     }
-    
+
     @Test
     public void testGetCoursesByMaxClassSize() {
-        List<Course> courses = wr.path("courses")
-                .queryParam("maxClassSize", "1")
-                .get(new GenericType<List<Course>>(){});
+        List<Course> courses = wr.path("courses").queryParam("maxClassSize", "1").get(new GenericType<List<Course>>() {
+        });
         Assert.assertEquals(0, courses.size());
 
-        courses = wr.path("courses")
-                .queryParam("maxClassSize", "10")
-                .get(new GenericType<List<Course>>(){});
+        courses = wr.path("courses").queryParam("maxClassSize", "10").get(new GenericType<List<Course>>() {
+        });
         Assert.assertEquals(1, courses.size());
         Assert.assertEquals(Long.valueOf(100003L), courses.get(0).getId());
 
-        courses = wr.path("courses")
-                .queryParam("maxClassSize", "20")
-                .get(new GenericType<List<Course>>(){});
+        courses = wr.path("courses").queryParam("maxClassSize", "20").get(new GenericType<List<Course>>() {
+        });
         Assert.assertEquals(3, courses.size());
         Assert.assertEquals(Long.valueOf(100001L), courses.get(0).getId());
         Assert.assertEquals(Long.valueOf(100002L), courses.get(1).getId());
@@ -125,24 +117,21 @@ public class CourseResourceTest extends ResourceTest {
 
     @Test
     public void testGetCoursesByMinClassSize() {
-        List<Course> courses = wr.path("courses")
-                .queryParam("minClassSize", "10")
-                .get(new GenericType<List<Course>>(){});
+        List<Course> courses = wr.path("courses").queryParam("minClassSize", "10").get(new GenericType<List<Course>>() {
+        });
         Assert.assertEquals(3, courses.size());
         Assert.assertEquals(Long.valueOf(100001L), courses.get(0).getId());
         Assert.assertEquals(Long.valueOf(100002L), courses.get(1).getId());
         Assert.assertEquals(Long.valueOf(100003L), courses.get(2).getId());
 
-        courses = wr.path("courses")
-                .queryParam("minClassSize", "20")
-                .get(new GenericType<List<Course>>(){});
+        courses = wr.path("courses").queryParam("minClassSize", "20").get(new GenericType<List<Course>>() {
+        });
         Assert.assertEquals(2, courses.size());
         Assert.assertEquals(Long.valueOf(100001L), courses.get(0).getId());
         Assert.assertEquals(Long.valueOf(100002L), courses.get(1).getId());
 
-        courses = wr.path("courses")
-                .queryParam("minClassSize", "30")
-                .get(new GenericType<List<Course>>(){});
+        courses = wr.path("courses").queryParam("minClassSize", "30").get(new GenericType<List<Course>>() {
+        });
         Assert.assertEquals(0, courses.size());
     }
 
@@ -151,13 +140,15 @@ public class CourseResourceTest extends ResourceTest {
         List<Course> courses = wr.path("courses")
                 .queryParam("minClassSize", "10")
                 .queryParam("maxClassSize", "15")
-                .get(new GenericType<List<Course>>(){});
+                .get(new GenericType<List<Course>>() {
+                });
         Assert.assertEquals(1, courses.size());
 
         courses = wr.path("courses")
                 .queryParam("minClassSize", "30")
                 .queryParam("maxClassSize", "25")
-                .get(new GenericType<List<Course>>(){});
+                .get(new GenericType<List<Course>>() {
+                });
         Assert.assertEquals(0, courses.size());
     }
 
@@ -165,21 +156,20 @@ public class CourseResourceTest extends ResourceTest {
     public void testGetCoursesByInstructor() {
         List<Course> courses = wr.path("courses")
                 .queryParam("instructor", "Prof. X")
-                .get(new GenericType<List<Course>>(){});
+                .get(new GenericType<List<Course>>() {
+                });
         Assert.assertEquals(1, courses.size());
         Assert.assertEquals(Long.valueOf(100002L), courses.get(0).getId());
         Assert.assertEquals("Prof. X", courses.get(0).getInstructor());
 
-        courses = wr.path("courses")
-                .queryParam("instructor", "prof. x")
-                .get(new GenericType<List<Course>>(){});
+        courses = wr.path("courses").queryParam("instructor", "prof. x").get(new GenericType<List<Course>>() {
+        });
         Assert.assertEquals(1, courses.size());
         Assert.assertEquals(Long.valueOf(100002L), courses.get(0).getId());
         Assert.assertEquals("Prof. X", courses.get(0).getInstructor());
 
-        courses = wr.path("courses")
-                .queryParam("instructor", "asgsad")
-                .get(new GenericType<List<Course>>(){});
+        courses = wr.path("courses").queryParam("instructor", "asgsad").get(new GenericType<List<Course>>() {
+        });
         Assert.assertEquals(0, courses.size());
     }
 
@@ -216,7 +206,7 @@ public class CourseResourceTest extends ResourceTest {
         before.setObjectives(o);
         course.setRubric(before);
         wr.path("courses/100001").put(course);
-        
+
         course = wr.path("courses/100001").get(Course.class);
         Rubric after = course.getRubric();
         o = after.getObjectives();
@@ -242,11 +232,15 @@ public class CourseResourceTest extends ResourceTest {
         r.addAssignment(a);
         course.setRubric(r);
         wr.path("courses/100001").put(course);
-        
+
         Course course2 = wr.path("courses/100001").get(Course.class);
         r = course2.getRubric();
         Assert.assertEquals(1, r.getAssignments().size());
-        Assert.assertEquals("Successfully SSH tunnel into a machine", r.getAssignments().get(0).getOutcomes().get(0).getDescription());
+        Assert.assertEquals("Successfully SSH tunnel into a machine", r.getAssignments()
+                .get(0)
+                .getOutcomes()
+                .get(0)
+                .getDescription());
     }
 
     @Test
@@ -265,18 +259,92 @@ public class CourseResourceTest extends ResourceTest {
         Assert.assertEquals(0, course2.getRubric().getObjectives().size());
         Assert.assertEquals(0, course2.getRubric().getAssignments().size());
     }
-    
+
     @Test
     public void testGetCoursesByClassTime() {
         List<Course> courses = wr.path("courses")
                 .queryParam("classTimes", "2013-02-18T11:00,2013-02-20T11:00:00")
-                .get(new GenericType<List<Course>>(){});
-        Assert.assertEquals(1, courses.size());
+                .get(new GenericType<List<Course>>() {
+                });
+        Assert.assertEquals(2, courses.size());
+        Assert.assertEquals(Long.valueOf(100001), courses.get(0).getId());
+        Assert.assertEquals(Long.valueOf(100004), courses.get(1).getId());
 
         courses = wr.path("courses")
                 .queryParam("classTimes", "2013-02-20T12:00:00")
-                .get(new GenericType<List<Course>>(){});
+                .get(new GenericType<List<Course>>() {
+                });
         Assert.assertEquals(0, courses.size());
+
+        courses = wr.path("courses")
+                .queryParam("classTimes", "2013-02-22T11:00:00")
+                .get(new GenericType<List<Course>>() {
+                });
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100001), courses.get(0).getId());
+
+        courses = wr.path("courses")
+                .queryParam("classTimes", "2013-02-22T12:00:00")
+                .get(new GenericType<List<Course>>() {
+                });
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100004), courses.get(0).getId());
     }
 
+    @Test
+    public void testGetCoursesByClasstimeWithMalformedTimestampResponds400() {
+        ClientResponse response = wr.path("courses")
+                .queryParam("classTimes", "NotATimestamp")
+                .get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + AbstractResource.MALFORMED_ARGUMENT_DATE, response.getEntity(String.class));
+
+        response = wr.path("courses").queryParam("classTimes", "2013-02-22 12:00:00").get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + AbstractResource.MALFORMED_ARGUMENT_DATE, response.getEntity(String.class));
+
+        response = wr.path("courses").queryParam("classTimes", "2013-02-22T12:89:00").get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + AbstractResource.MALFORMED_ARGUMENT_DATE, response.getEntity(String.class));
+    }
+
+    @Test
+    public void testGetCoursesByClassTimeWithTimestampOutOfRangeResponds400() {
+        ClientResponse response = wr.path("courses")
+                .queryParam("classTimes", "2013-02-25T00:00:00")
+                .get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + CourseResource.COURSE_CLASSTIME_QUERY_OUT_OF_RANGE,
+                response.getEntity(String.class));
+
+        response = wr.path("courses").queryParam("classTimes", "2014-02-18T00:00:00").get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + CourseResource.COURSE_CLASSTIME_QUERY_OUT_OF_RANGE,
+                response.getEntity(String.class));
+    }
+
+    @Test
+    public void testGetCoursesWithTooLargeSkipAndMaxResponds400() {
+        List<Course> courses = wr.path("courses")
+                .queryParam("discipline", "Computer Science")
+                .get(new GenericType<List<Course>>() {
+                });
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100003L), courses.get(0).getId());
+        Assert.assertEquals("Computer Science", courses.get(0).getDiscipline());
+
+        ClientResponse response = wr.path("courses")
+                .queryParam("discipline", "Computer Science")
+                .queryParam("max", "51")
+                .get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + AbstractResource.MAX_TOO_LARGE, response.getEntity(String.class));
+
+        response = wr.path("courses")
+                .queryParam("discipline", "Computer Science")
+                .queryParam("skip", "-1")
+                .get(ClientResponse.class);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + AbstractResource.SKIP_TOO_SMALL, response.getEntity(String.class));
+    }
 }

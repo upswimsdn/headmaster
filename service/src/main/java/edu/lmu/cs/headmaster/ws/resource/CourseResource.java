@@ -27,6 +27,7 @@ public interface CourseResource {
     
     static final String COURSE_NOT_FOUND = "course.not.found";
     static final String COURSE_QUERY_PARAMETERS_BAD = "malformed.course.query.paramters";
+    static final String COURSE_CLASSTIME_QUERY_OUT_OF_RANGE = "query.by.classtime.not.within.allowable.range";
 
     static final DateTime DEFAULT_MONDAY = new DateTime(2013, DateTimeConstants.FEBRUARY, 18, 0, 0, 0, 0);
     static final DateTime DEFAULT_SUNDAY = new DateTime(2013, DateTimeConstants.FEBRUARY, 24, 23, 59, 59, 0);
