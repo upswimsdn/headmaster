@@ -183,6 +183,10 @@ public class AbstractResource {
                 USER_FORBIDDEN);
     }
 
+    /**
+     * Utility method for seeing if certain query parameters that are depend on each 
+     * other are all included.
+     */
     protected Boolean checkMutualInclusionOfParameters(Object... args) {
         Boolean firstIsPresent = args[0] != null;
         for (Object o : args) {

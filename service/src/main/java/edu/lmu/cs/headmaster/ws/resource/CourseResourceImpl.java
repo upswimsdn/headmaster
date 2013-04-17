@@ -1,9 +1,12 @@
 package edu.lmu.cs.headmaster.ws.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+
+import org.joda.time.DateTime;
 
 import edu.lmu.cs.headmaster.ws.dao.UserDao;
 import edu.lmu.cs.headmaster.ws.domain.Course;
@@ -35,7 +38,20 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
         // Check that pagination are within reasonable bounds
         validatePagination(skip, max, 0, 50);
 
-        return courseService.getCourses(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year,
+        // Process and validate the classtime query string
+        List<DateTime> schedule = null;
+
+        if (classTimes != null) {
+            String[] dateTimes = classTimes.split(",");
+            schedule = new ArrayList<DateTime>();
+            for (String s : dateTimes) {
+                DateTime d = toDateTime(s);
+                verifyDateTimeIsWithinRange(d);
+                schedule.add(d);
+            }
+        }
+
+        return courseService.getCourses(discipline, schedule, instructor, maxClassSize, minClassSize, term, year,
                 skip, max);
     }
 
@@ -64,6 +80,13 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
         Course course = courseService.getCourseById(id);
         validate(course != null, Response.Status.NOT_FOUND, COURSE_NOT_FOUND);
         return course;
+    }
+
+    /**
+     * Helper method to verify the query by classtime is correctly formatted
+     */
+    public Boolean verifyDateTimeIsWithinRange(DateTime date) {
+        return LEGAL_DATE_RANGE.contains(date);
     }
 
 }

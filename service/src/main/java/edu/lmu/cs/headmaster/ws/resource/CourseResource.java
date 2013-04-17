@@ -14,6 +14,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.Interval;
+
 import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
@@ -22,6 +26,11 @@ import edu.lmu.cs.headmaster.ws.types.Term;
 public interface CourseResource {
     
     static final String COURSE_NOT_FOUND = "course.not.found";
+    static final String COURSE_QUERY_PARAMETERS_BAD = "malformed.course.query.paramters";
+
+    static final DateTime DEFAULT_MONDAY = new DateTime(2013, DateTimeConstants.FEBRUARY, 18, 0, 0, 0, 0);
+    static final DateTime DEFAULT_SUNDAY = new DateTime(2013, DateTimeConstants.FEBRUARY, 24, 23, 59, 59, 0);
+    static final Interval LEGAL_DATE_RANGE = new Interval(DEFAULT_MONDAY, DEFAULT_SUNDAY);
     
     @GET
     List<Course> getCourses(@QueryParam("discipline") String discipline, @QueryParam("classTimes") String classTimes,
