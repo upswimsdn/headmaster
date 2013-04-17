@@ -65,11 +65,11 @@ insert into course(id, instructor, term, year) values (100004, 'Dr. Dondi', 0, 2
 
 insert into course_classtimes(course_id, classtimes) values(100004, '2013-02-18T11:00:00');
 insert into course_classtimes(course_id, classtimes) values(100004, '2013-02-20T11:00:00');
-insert into course_classtimes(course_id, classtimes) values(100004, '2013-03-22T12:00:00');
+insert into course_classtimes(course_id, classtimes) values(100004, '2013-02-22T12:00:00');
 
 insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-18T11:00:00');
 insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-20T11:00:00');
-insert into course_classtimes(course_id, classtimes) values(100001, '2013-03-22T11:00:00');
+insert into course_classtimes(course_id, classtimes) values(100001, '2013-02-22T11:00:00');
 
 insert into course_student(course_id, student_id) values(100001, 1000000);
 insert into course_student(course_id, student_id) values(100001, 1000001);

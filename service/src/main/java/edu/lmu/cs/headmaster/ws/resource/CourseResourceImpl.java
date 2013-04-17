@@ -1,5 +1,6 @@
 package edu.lmu.cs.headmaster.ws.resource;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,19 +47,24 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
             schedule = new ArrayList<DateTime>();
             for (String s : dateTimes) {
                 DateTime d = toDateTime(s);
-                validate(verifyDateTimeIsWithinRange(d), Response.Status.BAD_REQUEST, COURSE_CLASSTIME_QUERY_OUT_OF_RANGE);
+                validate(verifyDateTimeIsWithinRange(d), Response.Status.BAD_REQUEST,
+                        COURSE_CLASSTIME_QUERY_OUT_OF_RANGE);
                 schedule.add(d);
             }
         }
 
-        return courseService.getCourses(discipline, schedule, instructor, maxClassSize, minClassSize, term, year,
-                skip, max);
+        return courseService.getCourses(discipline, schedule, instructor, maxClassSize, minClassSize, term, year, skip,
+                max);
     }
 
     @Override
     public Response createCourse(Course course) {
-        // TODO Auto-generated method stub
-        return null;
+        logServiceCall();
+
+        validate(course.getId() == null, Response.Status.BAD_REQUEST, CourseResource.COURSE_OVERSPECIFIED);
+
+        courseService.createCourse(course);
+        return Response.created(URI.create(Long.toString(course.getId()))).build();
     }
 
     @Override

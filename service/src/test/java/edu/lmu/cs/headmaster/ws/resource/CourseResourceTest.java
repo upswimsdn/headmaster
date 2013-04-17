@@ -49,6 +49,7 @@ public class CourseResourceTest extends ResourceTest {
     public void testGetNonExistantCourseByIdResponds404() {
         ClientResponse response = wr.path("courses/8008135").get(ClientResponse.class);
         Assert.assertEquals(404, response.getStatus());
+        Assert.assertEquals("404 " + CourseResource.COURSE_NOT_FOUND, response.getEntity(String.class));
     }
 
     @Test
@@ -271,10 +272,11 @@ public class CourseResourceTest extends ResourceTest {
         Assert.assertEquals(Long.valueOf(100004), courses.get(1).getId());
 
         courses = wr.path("courses")
-                .queryParam("classTimes", "2013-02-20T12:00:00")
+                .queryParam("classTimes", "2013-02-22T12:00:00")
                 .get(new GenericType<List<Course>>() {
                 });
-        Assert.assertEquals(0, courses.size());
+        Assert.assertEquals(1, courses.size());
+        Assert.assertEquals(Long.valueOf(100004), courses.get(0).getId());
 
         courses = wr.path("courses")
                 .queryParam("classTimes", "2013-02-22T11:00:00")
@@ -346,5 +348,27 @@ public class CourseResourceTest extends ResourceTest {
                 .get(ClientResponse.class);
         Assert.assertEquals(400, response.getStatus());
         Assert.assertEquals("400 " + AbstractResource.SKIP_TOO_SMALL, response.getEntity(String.class));
+    }
+
+    @Test
+    public void testCreateNewCourseWithIdResponds400() {
+        Course courseToAdd = new Course();
+        courseToAdd.setId(25L);
+        ClientResponse response = wr.path("courses").post(ClientResponse.class, courseToAdd);
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("400 " + CourseResource.COURSE_OVERSPECIFIED, response.getEntity(String.class));
+    }
+
+    @Test
+    public void testCreateNewCourse() {
+        Course courseToAdd = new Course();
+        courseToAdd.setClassTitle("New Beginnings");
+        ClientResponse response = wr.path("courses").post(ClientResponse.class, courseToAdd);
+        Assert.assertEquals(201, response.getStatus());
+        Assert.assertEquals(wr.getURI() + "/courses/1", response.getHeaders().getFirst("Location"));
+
+        Course newCourse = wr.path("courses/1").get(Course.class);
+        Assert.assertEquals(Long.valueOf(1L), newCourse.getId());
+        Assert.assertEquals("New Beginnings", newCourse.getClassTitle());
     }
 }

@@ -26,6 +26,7 @@ import edu.lmu.cs.headmaster.ws.types.Term;
 public interface CourseResource {
     
     static final String COURSE_NOT_FOUND = "course.not.found";
+    static final String COURSE_OVERSPECIFIED = "course.overspecified";
     static final String COURSE_QUERY_PARAMETERS_BAD = "malformed.course.query.paramters";
     static final String COURSE_CLASSTIME_QUERY_OUT_OF_RANGE = "query.by.classtime.not.within.allowable.range";
 
