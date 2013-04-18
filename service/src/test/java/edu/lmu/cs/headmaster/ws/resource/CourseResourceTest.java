@@ -38,10 +38,6 @@ public class CourseResourceTest extends ResourceTest {
         Assert.assertEquals(DateTimeConstants.FRIDAY, c.getClassTimes().get(2).getDayOfWeek());
         Assert.assertEquals(11, c.getClassTimes().get(2).getHourOfDay());
 
-        Assert.assertEquals(2, c.getEnrolledStudents().size());
-        Assert.assertEquals(Long.valueOf(1000000L), c.getEnrolledStudents().get(0).getId());
-        Assert.assertEquals(Long.valueOf(1000001L), c.getEnrolledStudents().get(1).getId());
-
         Assert.assertEquals(c.getClassLength().getMillis(), 3000000L);
     }
 

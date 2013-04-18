@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.LazyCollection;
@@ -133,6 +134,7 @@ public class Course {
     @OrderBy("lastName")
     @JoinTable(joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
+    @XmlTransient
     public List<Student> getEnrolledStudents() {
         return enrolledStudents;
     }
