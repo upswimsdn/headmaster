@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 
 import edu.lmu.cs.headmaster.ws.dao.CourseDao;
 import edu.lmu.cs.headmaster.ws.domain.Course;
+import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public class CourseServiceImpl implements CourseService {
@@ -35,5 +36,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course getCourseById(Long id) {
         return courseDao.getCourseById(id);
+    }
+
+    @Override
+    public List<Student> getEnrolledStudentsById(Long id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

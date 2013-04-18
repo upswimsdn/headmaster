@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
+import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public interface CourseService {
@@ -17,4 +18,6 @@ public interface CourseService {
     void createOrUpdateCourse(Long id, Course course);
 
     Course getCourseById(Long id);
+    
+    List<Student> getEnrolledStudentsById(Long id);
 }
