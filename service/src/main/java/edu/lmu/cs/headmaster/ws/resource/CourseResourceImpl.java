@@ -4,13 +4,16 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
 
 import edu.lmu.cs.headmaster.ws.dao.UserDao;
 import edu.lmu.cs.headmaster.ws.domain.Course;
+import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.service.CourseService;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
@@ -99,6 +102,12 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
      */
     public Boolean verifyDateTimeIsWithinRange(DateTime date) {
         return LEGAL_DATE_RANGE.contains(date);
+    }
+
+    @Override
+    public List<Student> getEnrolledStudentsById(Long id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

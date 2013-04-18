@@ -19,6 +19,7 @@ import org.joda.time.DateTimeConstants;
 import org.joda.time.Interval;
 
 import edu.lmu.cs.headmaster.ws.domain.Course;
+import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 @Consumes(MediaType.APPLICATION_JSON)
@@ -51,5 +52,9 @@ public interface CourseResource {
     @GET
     @Path("{id}")
     Course getCourseById(@PathParam("id") Long id);
+    
+    @GET
+    @Path("{id}/students")
+    List<Student> getEnrolledStudentsById(@PathParam("id") Long id);
 
 }
