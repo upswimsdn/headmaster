@@ -29,5 +29,4 @@ public class CourseResourceNonPrivilegedUserTest extends ResourceTest {
         Assert.assertEquals(403, response.getStatus());
         Assert.assertEquals("403 " + AbstractResource.USER_FORBIDDEN, response.getEntity(String.class));
     }
-
 }

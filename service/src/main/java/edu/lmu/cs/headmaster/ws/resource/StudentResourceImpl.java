@@ -163,7 +163,6 @@ public class StudentResourceImpl extends AbstractResource implements StudentReso
     @Override
     public Student getStudentById(Long id) {
         logServiceCall();
-
         Student student = studentService.getStudentById(id);
         validate(student != null, Response.Status.NOT_FOUND, STUDENT_NOT_FOUND);
         return student;
