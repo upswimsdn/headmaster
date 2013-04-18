@@ -106,8 +106,8 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
 
     @Override
     public List<Student> getEnrolledStudentsById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        validatePrivilegedUserCredentials();
+        return courseService.getEnrolledStudentsById(id);
     }
 
 }

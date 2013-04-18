@@ -18,9 +18,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCourses(String discipline, List<DateTime> classTimes, String instructor, Integer maxClassSize,
-            Integer minClassSize, Term term, Integer year, int skip, int max) {
-        return courseDao.getCourses(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year, skip, max);
+    public List<Course> getCourses(String discipline, List<DateTime> classTimes, String instructor,
+            Integer maxClassSize, Integer minClassSize, Term term, Integer year, int skip, int max) {
+        return courseDao.getCourses(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year, skip,
+                max);
     }
 
     @Override
@@ -40,7 +41,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Student> getEnrolledStudentsById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        return getCourseById(id).getEnrolledStudents();
     }
 }
