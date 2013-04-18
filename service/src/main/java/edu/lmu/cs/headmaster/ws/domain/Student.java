@@ -78,6 +78,7 @@ public class Student {
     private StudentRecord record = new StudentRecord();
     private List<String> foodPreference = new ArrayList<String>();
     private List<Course> enrolledCourses = new ArrayList<Course>();
+    private String login;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -467,4 +468,12 @@ public class Student {
         this.enrolledCourses = enrolledCourses;
     }
 
+    @Lob
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
 }

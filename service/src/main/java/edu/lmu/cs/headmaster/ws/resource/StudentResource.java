@@ -32,9 +32,10 @@ public interface StudentResource {
     /**
      * Possible resource error messages.
      */
-    String STUDENT_OVERSPECIFIED = "student.overspecified";
-    String STUDENT_INCONSISTENT = "student.inconsistent";
-    String STUDENT_NOT_FOUND = "student.not.found";
+    static final String STUDENT_OVERSPECIFIED = "student.overspecified";
+    static final String STUDENT_INCONSISTENT = "student.inconsistent";
+    static final String STUDENT_NOT_FOUND = "student.not.found";
+    static final String NOT_AUTHORIZED_TO_VIEW_STUDENT = "not.authorized.to.retrieve.student";
 
     /**
      * Returns students according to the search parameters
