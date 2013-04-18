@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <link rel="stylesheet" href="/resources/demos/style.css" />
+        <meta charset="UTF-8" />
+        <title>Manage Grading Schema</title>
+        <style>
+        .objectives { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+        .objectives li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em; height: 18px; }
+        .objectives li span { position: absolute; margin-left: -1.3em; }
+        </style>
+    </head>
+    <script>
+        $(function() {
+            $("#objectives1").sortable();
+            $("#objectives1").disableSelection();
+            $("#objectives2").sortable();
+            $("#objectives2").disableSelection();
+        });
+    </script>
+    <body>
+        <div id="outcome1">
+        <h2>1. Become an operating system "power user."</h2>
+        <ul id="objectives1" class="objectives">
+            <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>1a. Effectively and efficiently use a command-based operating 
+system shell.</li>
+              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>1b. Monitor and manage processes and memory use.</li>
+              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>1c. Navigate, monitor, and manage a logical file system.</li>
+              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>1d. Redirect input and output streams to and from files, 
+processes, and networked computers.</li>
+              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>1e. Interact with operating systems across the network.</li>
+        </ul>
+        </div>
+
+        <div id="outcome2">
+        <h2>2. Follow academic and technical best practices.</h2>
+        <ul id="objectives2" class="objectives">
+            <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>2a. Write syntactically correct, functional code.</li>
+              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>2b. Demonstrate proper separation of concerns.</li>
+              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>2c. Write code that is easily understood by programmers other 
+than yourself</li>
+              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>2d. Use available resources and documentation to find
+required information.</li>
+              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>2e. Use version control effectively.</li>
+        </ul>
+        </div>
+    </body>
+</html>
