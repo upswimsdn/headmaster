@@ -184,7 +184,9 @@ public class StudentResourceImpl extends AbstractResource implements StudentReso
      */
     @Override
     public StudentRecord getStudentRecordById(Long id) {
-        return getStudentById(id).getRecord();
+        Student student = getStudentById(id);
+        verifyUserIsAuthorizedToViewRequestedStudent(student);
+        return student.getRecord();
     }
 
     /**
@@ -193,6 +195,7 @@ public class StudentResourceImpl extends AbstractResource implements StudentReso
     @Override
     public Response updateStudentRecord(Long id, StudentRecord studentRecord) {
         // Dao problems will filter up as exceptions.
+        validatePrivilegedUserCredentials();
         studentService.updateStudentRecord(id, studentRecord);
         return Response.noContent().build();
     }
@@ -205,7 +208,7 @@ public class StudentResourceImpl extends AbstractResource implements StudentReso
                 && !securityContext.isUserInRole(Role.HEADMASTER.name())) {
             // Check if requested Student is tied to the requesting User.
             validate(student.getLogin().equals(securityContext.getUserPrincipal().getName()),
-                    Response.Status.UNAUTHORIZED, NOT_AUTHORIZED_TO_VIEW_STUDENT);
+                    Response.Status.UNAUTHORIZED, USER_UNAUTHORIZED);
         } else {
             validatePrivilegedUserCredentials();
         }

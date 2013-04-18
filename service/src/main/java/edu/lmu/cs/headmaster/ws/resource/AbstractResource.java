@@ -39,6 +39,7 @@ public class AbstractResource {
     public static final String UNSUPPORTED_ENCODING = "encoding.not.supported";
     public static final String INVALID_USER = "user.invalid";
     public static final String USER_FORBIDDEN = "user.forbidden";
+    public static final String USER_UNAUTHORIZED = "user.unauthorized";
 
     protected Logger logger = Logger.getLogger(getClass());
 
