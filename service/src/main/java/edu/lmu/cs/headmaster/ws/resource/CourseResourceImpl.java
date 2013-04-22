@@ -4,9 +4,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
@@ -80,7 +78,7 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
         // Only faculty/staff are able to update any course information.
         validatePrivilegedUserCredentials();
 
-        // The student IDs should match.
+        // The course IDs should match.
         validate(id.equals(course.getId()), Response.Status.BAD_REQUEST, ID_INCONSISTENT);
 
         // Dao problems will filter up as exceptions.
@@ -98,7 +96,7 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
     }
 
     /**
-     * Helper method to verify the query by classtime is correctly formatted
+     * Helper method to verify the query by class time is correctly formatted
      */
     public Boolean verifyDateTimeIsWithinRange(DateTime date) {
         return LEGAL_DATE_RANGE.contains(date);
