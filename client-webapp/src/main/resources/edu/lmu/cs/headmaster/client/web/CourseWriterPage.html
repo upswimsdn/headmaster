@@ -1,0 +1,68 @@
+<!doctype html>
+
+<!-- Note: Content outside wicket:extend is for local, file-based development and design only, and
+     will be replaced by ClientPage content when deployed. -->
+<html xmlns:wicket>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Headmaster: Course Entry UI</title>
+
+        <link rel="stylesheet"
+                href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="lib/bootstrap-datepicker/datepicker.css"/>
+
+        <link rel="stylesheet" href="css/client.css"/>
+        <wicket:head>
+            <wicket:link>
+                <link rel="stylesheet" href="css/student-writer.css"/>
+            </wicket:link>
+        </wicket:head>
+    </head>
+    <body>
+        <wicket:extend>
+            <wicket:child/>
+
+            <!-- Special data delivery element. -->
+            <div class="hide" id="course-id" wicket:id="course-id"></div>
+
+            <div class="container">
+                <div class="alert alert-success hide fade in" id="student-success">
+                    <h4 class="alert-heading">
+                        <wicket:message key="success.title">Course Written</wicket:message>
+                    </h4>
+                    <wicket:message key="success.message">The course has been saved.</wicket:message>
+
+                    <a class="hide" id="course-new-link" href="#">
+                        <wicket:message key="success.link">Click here to view the new course.</wicket:message>
+                    </a>
+                </div>
+                <div class="form-actions">
+                    <div class="pull-right">
+                        <button class="btn" id="course-cancel">
+                            <wicket:message key="button.cancel">Cancel</wicket:message>
+                        </button>
+                        <button class="btn btn-primary" id="course-save">
+                            <wicket:message key="button.save">Save</wicket:message>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temporary backversioning pending typeahead keyboard bug fix:
+                 https://github.com/twitter/bootstrap/issues/4465 -->
+            <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+            <!-- For this page, we need something from jQuery UI that we do not have with
+                 Bootstrap: easy drag-and-drop rearranging of elements. -->
+            <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js"></script>
+        </wicket:extend>
+
+        <script src="js/headmaster-offline.js"></script>
+
+        <script src="lib/date.js"></script>
+        <script src="js/headmaster-util.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js"></script>
+        <script src="lib/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    </body>
+</html>
