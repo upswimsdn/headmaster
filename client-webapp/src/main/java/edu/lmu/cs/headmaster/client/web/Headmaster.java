@@ -111,6 +111,8 @@ public class Headmaster extends AuthenticatedWebApplication {
 
         mountBookmarkablePage("students/new", StudentCreationPage.class);
         mountBookmarkablePage("students/search", StudentSearchPage.class);
+        
+        mountBookmarkablePage("courses/search", CourseSearchPage.class);
 
         mountBookmarkablePage("students/freshmen", FreshmenPage.class);
         mountBookmarkablePage("students/sophomores", SophomoresPage.class);
