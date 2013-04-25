@@ -33,7 +33,7 @@ import edu.lmu.cs.headmaster.ws.util.DurationXmlAdapter;
 @XmlRootElement
 public class Course {
     private Long id;
-    private String classTitle;
+    private String title;
     private String description;
     private String discipline;
     private Integer credits;
@@ -59,11 +59,11 @@ public class Course {
     }
 
     public String getClassTitle() {
-        return classTitle;
+        return title;
     }
 
     public void setClassTitle(String classTitle) {
-        this.classTitle = classTitle;
+        this.title = classTitle;
     }
 
     public String getDescription() {

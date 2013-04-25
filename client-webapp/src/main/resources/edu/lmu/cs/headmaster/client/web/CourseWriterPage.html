@@ -27,7 +27,7 @@
             <div class="hide" id="course-id" wicket:id="course-id"></div>
 
             <div class="container">
-                <div class="alert alert-success hide fade in" id="student-success">
+                <div class="alert alert-success hide fade in" id="course-success">
                     <h4 class="alert-heading">
                         <wicket:message key="success.title">Course Written</wicket:message>
                     </h4>
@@ -92,6 +92,9 @@
             <!-- For this page, we need something from jQuery UI that we do not have with
                  Bootstrap: easy drag-and-drop rearranging of elements. -->
             <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js"></script>
+            <wicket:link>
+                <script src="js/course-writer.js"></script>
+            </wicket:link>
         </wicket:extend>
 
         <script src="js/headmaster-offline.js"></script>
