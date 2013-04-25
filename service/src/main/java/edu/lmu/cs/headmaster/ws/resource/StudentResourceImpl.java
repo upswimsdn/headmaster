@@ -203,8 +203,9 @@ public class StudentResourceImpl extends AbstractResource implements StudentReso
      * Utility method to verify that the User is authorized to retrieve the requested Student.
      */
     public void verifyUserIsAuthorizedToViewRequestedStudent(Student student) {
-        if (!securityContext.isUserInRole(Role.STAFF.name()) && !securityContext.isUserInRole(Role.FACULTY.name())
-                && !securityContext.isUserInRole(Role.HEADMASTER.name())) {
+        // Another workaround, we need to have all role name comparisons be only in lower case.
+        if (!(securityContext.isUserInRole(Role.STAFF.name().toLowerCase()) || securityContext.isUserInRole(Role.FACULTY.name().toLowerCase())
+                || securityContext.isUserInRole(Role.HEADMASTER.name().toLowerCase()))) {
             // Check if requested Student is tied to the requesting User.
             validate(student.getLogin().equals(securityContext.getUserPrincipal().getName()),
                     Response.Status.UNAUTHORIZED, USER_UNAUTHORIZED);

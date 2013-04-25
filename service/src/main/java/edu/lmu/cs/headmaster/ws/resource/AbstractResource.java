@@ -177,15 +177,16 @@ public class AbstractResource {
      * Checks whether the current user can see privileged information.
      */
     protected void validatePrivilegedUserCredentials() {
+        // This holds a major work around right now, all rolenames have to be lowercase.
         logger.debug("Checking for privileged user credentials.");
-        validate(securityContext.isUserInRole(Role.HEADMASTER.name()) ||
-                securityContext.isUserInRole(Role.FACULTY.name()) ||
-                securityContext.isUserInRole(Role.STAFF.name()), Response.Status.FORBIDDEN,
+        validate(securityContext.isUserInRole(Role.HEADMASTER.name().toLowerCase()) ||
+                securityContext.isUserInRole(Role.FACULTY.name().toLowerCase()) ||
+                securityContext.isUserInRole(Role.STAFF.name().toLowerCase()), Response.Status.FORBIDDEN,
                 USER_FORBIDDEN);
     }
 
     /**
-     * Utility method for seeing if certain query parameters that are depend on each 
+     * Utility method for seeing if certain query parameters that are dependant on each 
      * other are all included.
      */
     protected Boolean checkMutualInclusionOfParameters(Object... args) {

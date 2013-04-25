@@ -100,5 +100,4 @@ public class UserResourceTest extends ResourceTest {
             response.getEntity(String.class)
         );
     }
-
 }
