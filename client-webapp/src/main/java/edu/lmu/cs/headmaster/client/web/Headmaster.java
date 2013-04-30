@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.target.coding.MixedParamUrlCodingStrategy;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
+
 /**
  * Application object for the web application.
  */
@@ -121,6 +122,9 @@ public class Headmaster extends AuthenticatedWebApplication {
         mountBookmarkablePage("students/seniors", SeniorsPage.class);
 
         mountBookmarkablePage("grants/list", ProposalListPage.class);
+        
+        //URL customization for Standards Based Grading pages
+        mountBookmarkablePage("sbg/main", SBGMain.class);
         
         // More URL customization, now for URLs with parameters.
         // Special handling: individual referral page is parameterized.

@@ -1,4 +1,4 @@
-package edu.lmu.cs.headmaster.client.web.sbg;
+package edu.lmu.cs.headmaster.client.web;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.authorization.strategies.role.Roles;
@@ -7,7 +7,6 @@ import org.apache.wicket.markup.html.WebPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.lmu.cs.headmaster.client.web.Headmaster;
 
 /**
  * SBGHome is the superclass for all of Headmaster's Standards Based Grading Views
