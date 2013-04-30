@@ -26,7 +26,7 @@ import org.hibernate.annotations.LazyCollectionOption;
  * A user is an entity who may interact with Headmaster.
  */
 @Entity
-@Table(name="serviceuser")
+@Table(name = "serviceuser")
 @XmlRootElement
 public class User implements Serializable {
 
@@ -83,7 +83,7 @@ public class User implements Serializable {
 
     @Transient
     // To service changes in password, we have a separate property
-    // for a requested challenge.  This property, however, never
+    // for a requested challenge. This property, however, never
     // goes to the database.
     public String getChallengeRequest() {
         return challengeRequest;
@@ -114,8 +114,8 @@ public class User implements Serializable {
     }
 
     /**
-     * A user *may* be associated with a student. Coupled with a STUDENT role,
-     * this facilitates a student-centric view of the application.
+     * A user *may* be associated with a student. Coupled with a STUDENT role, this facilitates a student-centric view
+     * of the application.
      */
     @OneToOne(cascade = CascadeType.ALL)
     public Student getStudent() {
@@ -125,12 +125,12 @@ public class User implements Serializable {
     public void setStudent(Student student) {
         this.student = student;
     }
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     public Instructor getInstructor() {
         return instructor;
     }
-    
+
     public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
