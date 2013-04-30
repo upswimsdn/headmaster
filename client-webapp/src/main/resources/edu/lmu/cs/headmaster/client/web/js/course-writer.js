@@ -32,23 +32,12 @@ $(function () {
         });
     });
     
-    // Initialize all bootstrap-timepickers.
+    // Initialize all bootstrap-timepickers and hide them.
+    $(".bootstrap-timepicker").hide();
     $(".bootstrap-timepicker > input").timepicker();
     
     $("#day-picker > .btn").click(function (event) {
         var day = this.value;
-        if (!($(this).hasClass("active"))) {
-            createTimePicker(day);
-        } else {
-            removeTimePicker(day);
-        }
+        $("#timepicker-" + day).toggle({duration: 100, easing: "easeInSine"});
     })
-
-    var createTimePicker = function (day) {
-        $("#timepicker-" + day).timepicker();
-    }
-
-    var removeTimePicker = function (day) {
-        $("#timepicker-" + day).hide();
-    }
 })

@@ -4,7 +4,3 @@
         .input-append.major > *:nth-child(3) {
     border-radius: inherit;
 }
-
-.bootstrap-timepicker {
-    visibility: hidden;
-}
