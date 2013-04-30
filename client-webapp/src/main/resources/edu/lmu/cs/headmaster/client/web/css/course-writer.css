@@ -1,0 +1,10 @@
+@import url("course-writer.css");
+
+.input-append > .btn.btn-danger, .input-append.major > *:nth-child(2),
+        .input-append.major > *:nth-child(3) {
+    border-radius: inherit;
+}
+
+.bootstrap-timepicker {
+    visibility: hidden;
+}

@@ -31,4 +31,24 @@ $(function () {
             }
         });
     });
+    
+    // Initialize all bootstrap-timepickers.
+    $(".bootstrap-timepicker > input").timepicker();
+    
+    $("#day-picker > .btn").click(function (event) {
+        var day = this.value;
+        if (!($(this).hasClass("active"))) {
+            createTimePicker(day);
+        } else {
+            removeTimePicker(day);
+        }
+    })
+
+    var createTimePicker = function (day) {
+        $("#timepicker-" + day).timepicker();
+    }
+
+    var removeTimePicker = function (day) {
+        $("#timepicker-" + day).hide();
+    }
 })
