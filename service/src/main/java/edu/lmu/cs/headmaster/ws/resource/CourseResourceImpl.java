@@ -34,25 +34,14 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
         validate(!(discipline == null && classTimes == null && instructor == null && maxClassSize == null
                 && minClassSize == null && term == null && year == null), Response.Status.BAD_REQUEST, QUERY_REQUIRED);
 
-        // Check that both term and year and either present or not present
+        // Check that both term and year are either present or not present
         validate(checkMutualInclusionOfParameters(term, year), Response.Status.BAD_REQUEST, ARGUMENT_CONFLICT);
 
         // Check that pagination are within reasonable bounds
         validatePagination(skip, max, 0, 50);
 
         // Process and validate the class time query string
-        List<DateTime> schedule = null;
-
-        if (classTimes != null) {
-            String[] dateTimes = classTimes.split(",");
-            schedule = new ArrayList<DateTime>();
-            for (String s : dateTimes) {
-                DateTime d = toDateTime(s);
-                validate(verifyDateTimeIsWithinRange(d), Response.Status.BAD_REQUEST,
-                        COURSE_CLASSTIME_QUERY_OUT_OF_RANGE);
-                schedule.add(d);
-            }
-        }
+        List<DateTime> schedule = processQueryByClassTime(classTimes);
 
         return courseService.getCourses(discipline, schedule, instructor, maxClassSize, minClassSize, term, year, skip,
                 max);
@@ -61,7 +50,7 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
     @Override
     public Response createCourse(Course course) {
         logServiceCall();
-        
+
         // Only faculty/staff are able to create new courses.
         validatePrivilegedUserCredentials();
 
@@ -74,7 +63,7 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
     @Override
     public Response createOrUpdateCourse(Long id, Course course) {
         logServiceCall();
-        
+
         // Only faculty/staff are able to update any course information.
         validatePrivilegedUserCredentials();
 
@@ -95,17 +84,36 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
         return course;
     }
 
-    /**
-     * Helper method to verify the query by class time is correctly formatted
-     */
-    public Boolean verifyDateTimeIsWithinRange(DateTime date) {
-        return LEGAL_DATE_RANGE.contains(date);
-    }
-
     @Override
     public List<Student> getEnrolledStudentsById(Long id) {
         validatePrivilegedUserCredentials();
         return courseService.getEnrolledStudentsById(id);
     }
 
+    /**
+     * Helper method to verify the query by class time is correctly formatted
+     */
+    public Boolean verifyDateTimeIsWithinRange(DateTime date) {
+        return LEGAL_DATE_RANGE.contains(date);
+    }
+    
+    /**
+     * Helper method to convert timestamps to Java DateTimes for querying courses
+     * by classTime.
+     */
+
+    public List<DateTime> processQueryByClassTime(String times) {
+        List<DateTime> schedule = null;
+        if (times != null) {
+            String[] dateTimes = times.split(",");
+            schedule = new ArrayList<DateTime>();
+            for (String s : dateTimes) {
+                DateTime d = toDateTime(s);
+                validate(verifyDateTimeIsWithinRange(d), Response.Status.BAD_REQUEST,
+                        COURSE_CLASSTIME_QUERY_OUT_OF_RANGE);
+                schedule.add(d);
+            }
+        }
+        return schedule;
+    }
 }
