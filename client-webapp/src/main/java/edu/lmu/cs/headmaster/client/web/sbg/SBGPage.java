@@ -13,9 +13,9 @@ import edu.lmu.cs.headmaster.client.web.Headmaster;
  * SBGHome is the superclass for all of Headmaster's Standards Based Grading Views
  */
 @AuthorizeInstantiation(Roles.USER)
-public class SBGHome extends WebPage {
+public class SBGPage extends WebPage {
 
-    public SBGHome(final PageParameters pageParameters) {
+    public SBGPage(final PageParameters pageParameters) {
         super(pageParameters);
     }
 
