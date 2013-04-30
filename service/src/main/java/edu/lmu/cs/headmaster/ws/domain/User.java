@@ -38,6 +38,7 @@ public class User implements Serializable {
     private String challengeRequest;
     private List<UserRole> roles;
     private Student student;
+    private Instructor instructor;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -123,6 +124,15 @@ public class User implements Serializable {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    public Instructor getInstructor() {
+        return instructor;
+    }
+    
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
 }

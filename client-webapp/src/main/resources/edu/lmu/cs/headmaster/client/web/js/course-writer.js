@@ -4,7 +4,7 @@ $(function () {
         DEFAULT_SUNDAY = 24,
         DEFAULT_MONTH = 2,
         DEFAULT_YEAR = 2013,
-        
+
         getScheduleDateTimes = function () {
             var daySelectionButtons = $("#day-picker > .active"),
                 timestamps = [];
@@ -16,7 +16,7 @@ $(function () {
 
             return timestamps;
         },
-    
+
         parseInputToDateTime = function (day) {
            var time = $("#timeinput-" + day).val().split(":");
            return new Date(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_MONDAY + parseInt(day), parseInt(time[0]), parseInt(time[1]), 0, 0);
