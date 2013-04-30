@@ -358,13 +358,13 @@ public class CourseResourceTest extends ResourceTest {
     @Test
     public void testCreateNewCourse() {
         Course courseToAdd = new Course();
-        courseToAdd.setClassTitle("New Beginnings");
+        courseToAdd.setTitle("New Beginnings");
         ClientResponse response = wr.path("courses").post(ClientResponse.class, courseToAdd);
         Assert.assertEquals(201, response.getStatus());
         Assert.assertEquals(wr.getURI() + "/courses/1", response.getHeaders().getFirst("Location"));
 
         Course newCourse = wr.path("courses/1").get(Course.class);
         Assert.assertEquals(Long.valueOf(1L), newCourse.getId());
-        Assert.assertEquals("New Beginnings", newCourse.getClassTitle());
+        Assert.assertEquals("New Beginnings", newCourse.getTitle());
     }
 }

@@ -54,6 +54,15 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label" for="course-discipline">
+                                <wicket:message key="label.discipline">Discipline</wicket:message>
+                            </label>
+                            <div class="controls">
+                            <input type="text" class="input-xlarge"
+                                    id="course-discipline"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label" for="course-instructor">
                                 <wicket:message key="label.faculty.instructor">Instructor</wicket:message>
                             </label>
@@ -68,6 +77,33 @@
                             </label>
                             <div class="controls">
                                 <textarea class="input-xlarge" id="course-description" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">
+                                <wicket:message key="label.classsize">Class Size</wicket:message>
+                            </label>
+                            <div class="controls">
+                                <input type="number" step="1" class="input-medium"
+                                        id="course-classsize"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">
+                                <wicket:message key="label.credits">Credits</wicket:message>
+                            </label>
+                            <div class="controls">
+                                <input type="number" step="1" class="input-medium"
+                                        id="course-credits"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="course-room">
+                                <wicket:message key="label.room">Room</wicket:message>
+                            </label>
+                            <div class="controls">
+                            <input type="text" class="input-xlarge"
+                                    id="course-room"/>
                             </div>
                         </div>
                     </div>

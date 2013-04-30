@@ -3,8 +3,12 @@ $(function () {
     $("#course-save").click(function (event) {
         var courseData = {
                 title: $("#course-title").val(),
-                instructor: $("course-instructor").val(),
-                description: $("course-description").val()
+                discipline: $("#course-discipline").val(),
+                instructor: $("#course-instructor").val(),
+                description: $("#course-description").val(),
+                classSize: $("#course-classsize").val(),
+                credits: $("#course-credits").val(),
+                room: $("#course-room").val()
         }
 
         $.ajax({
@@ -14,7 +18,7 @@ $(function () {
             contentType: "application/json",
             dataType: "json",
 
-            success: function (data, textStatus, jqXHR) {SS
+            success: function (data, textStatus, jqXHR) {
                 var resultId = jqXHR.getResponseHeader("Location").split("/").pop();
 
                 // Provide visible UI feedback.

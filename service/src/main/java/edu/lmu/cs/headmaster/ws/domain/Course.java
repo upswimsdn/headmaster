@@ -58,11 +58,11 @@ public class Course {
         this.id = id;
     }
 
-    public String getClassTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setClassTitle(String classTitle) {
+    public void setTitle(String classTitle) {
         this.title = classTitle;
     }
 
