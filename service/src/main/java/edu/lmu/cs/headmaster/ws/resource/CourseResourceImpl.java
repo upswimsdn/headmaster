@@ -30,15 +30,8 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
             Integer minClassSize, Term term, Integer year, int skip, int max) {
         logServiceCall();
 
-        // Check that we have at least on query parameter
-        validate(!(discipline == null && classTimes == null && instructor == null && maxClassSize == null
-                && minClassSize == null && term == null && year == null), Response.Status.BAD_REQUEST, QUERY_REQUIRED);
-
-        // Check that both term and year are either present or not present
-        validate(checkMutualInclusionOfParameters(term, year), Response.Status.BAD_REQUEST, ARGUMENT_CONFLICT);
-
-        // Check that pagination are within reasonable bounds
-        validatePagination(skip, max, 0, 50);
+        // Error check all the query parameters
+        validateQueryParameters(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year, skip, max);
 
         // Process and validate the class time query string
         List<DateTime> schedule = processQueryByClassTime(classTimes);
@@ -96,12 +89,10 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
     public Boolean verifyDateTimeIsWithinRange(DateTime date) {
         return LEGAL_DATE_RANGE.contains(date);
     }
-    
-    /**
-     * Helper method to convert timestamps to Java DateTimes for querying courses
-     * by classTime.
-     */
 
+    /**
+     * Helper method to convert timestamps to Java DateTimes for querying courses by classTime.
+     */
     public List<DateTime> processQueryByClassTime(String times) {
         List<DateTime> schedule = null;
         if (times != null) {
@@ -115,5 +106,21 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
             }
         }
         return schedule;
+    }
+
+    /**
+     * Method to check validate parameters and throw service errors when requesting courses by any query.
+     */
+    public void validateQueryParameters(String discipline, String classTimes, String instructor, Integer maxClassSize,
+            Integer minClassSize, Term term, Integer year, int skip, int max) {
+        // Check that we have at least on query parameter
+        validate(!(discipline == null && classTimes == null && instructor == null && maxClassSize == null
+                && minClassSize == null && term == null && year == null), Response.Status.BAD_REQUEST, QUERY_REQUIRED);
+
+        // Check that both term and year are either present or not present
+        validate(checkMutualInclusionOfParameters(term, year), Response.Status.BAD_REQUEST, ARGUMENT_CONFLICT);
+
+        // Check that pagination are within reasonable bounds
+        validatePagination(skip, max, 0, 50);
     }
 }
