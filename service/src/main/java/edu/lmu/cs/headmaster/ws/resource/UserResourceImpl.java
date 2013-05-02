@@ -42,6 +42,13 @@ public class UserResourceImpl extends AbstractResource implements UserResource {
         validate(user != null, Response.Status.NOT_FOUND, USER_NOT_FOUND);
         return user;
     }
+    
+    @Override
+    public User getOwnUserInformation() {
+        String login = retrieveCurrentUsername();
+        validate(login != null, Response.Status.UNAUTHORIZED, USER_NOT_LOGGED_IN);
+        return getUserByLogin(login);
+    }
 
     @Override
     public Response createUser(User user) {
