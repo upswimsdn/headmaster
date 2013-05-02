@@ -3,6 +3,7 @@ insert into serviceuser(id, active, challenge, email, login) values(1000000, tru
 insert into userrole(id, rolename, login) values(1000000, 'HEADMASTER', 'admin');
 
 insert into serviceuser(id, active, challenge, email, login) values(1000001, true, 'password-noroles', 'noroles@headmaster.test', 'noroles');
+insert into serviceuser(id, active, challenge, email, login) values(1000002, true, 'aaaaaa', 'prof@university.edu', 'prof');
 
 -- Test fixture students.
 insert into student(id, firstname, lastname, active, expectedgraduationyear, transferStudent, login) values(1000000, 'Tim', 'Berners-Lee', true, 2016, true, 'PandaBear');
@@ -90,6 +91,9 @@ insert into assignment(id, title, description) values(100001, 'Assignment 0326',
 insert into assignment_outcome(assignment_id, outcomes_id) values(100001, 100001);
 insert into assignment_outcome(assignment_id, outcomes_id) values(100001, 100003);
 insert into course_assignment(course_id, assignments_id) values(100002, 100001);
+
+-- Tying courses to users for tests
+insert into serviceuser_course(user_id, course_id) values(1000002, 100001);
 
 -- Test fixtures for student SBG Grades
 insert into assignmentrecord(id) values(100001);

@@ -9,7 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -38,7 +41,7 @@ public class User implements Serializable {
     private String challengeRequest;
     private List<UserRole> roles;
     private Student student;
-    private Instructor instructor;
+    private List<Course> managedCourses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -126,13 +129,15 @@ public class User implements Serializable {
         this.student = student;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    public Instructor getInstructor() {
-        return instructor;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    public List<Course> getManagedCourses() {
+        return managedCourses;
     }
 
-    public void setInstructor(Instructor instructor) {
-        this.instructor = instructor;
+    public void setManagedCourses(List<Course> managedCourses) {
+        this.managedCourses = managedCourses;
     }
 
 }

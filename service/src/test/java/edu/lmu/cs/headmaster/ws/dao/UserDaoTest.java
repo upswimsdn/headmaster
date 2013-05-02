@@ -79,5 +79,13 @@ public class UserDaoTest extends ApplicationContextTest {
             Assert.assertEquals(Role.FACULTY, createdUser.getRoles().get(1).getRole());
         }
     }
+    
+    @Test
+    public void testGetUsersManagedCourses() {
+        User u = userDao.getUserByLogin("prof");
+        Assert.assertEquals(Long.valueOf(1000002L), u.getId());
+        Assert.assertEquals(1, u.getManagedCourses().size());
+        Assert.assertEquals(Long.valueOf(100001L), u.getManagedCourses().get(0).getId());
+    }
 
 }
