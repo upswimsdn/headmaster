@@ -30,10 +30,12 @@ public class UserResourceImpl extends AbstractResource implements UserResource {
 
     @Override
     public User getUserByLogin(String login) {
-        // We only allow user object access if the currently logged-in user is
-        // asking about itself.
-        validate(securityContext.getUserPrincipal().getName().equals(login),
-                Response.Status.NOT_FOUND, USER_NOT_FOUND);
+        // If User does not have Headmaster role, we only allow user object access 
+        // if the currently logged-in user is asking about itself.
+        if (!userInHeadmasterRole()) {
+            validate(securityContext.getUserPrincipal().getName().equals(login),
+                    Response.Status.NOT_FOUND, USER_NOT_FOUND);
+        }
 
         // If we get here, either the login names match or the user was an admin.
         User user = userDao.getUserByLogin(login);

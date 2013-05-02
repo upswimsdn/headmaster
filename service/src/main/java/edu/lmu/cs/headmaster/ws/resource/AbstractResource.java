@@ -186,6 +186,14 @@ public class AbstractResource {
     }
 
     /**
+     * Checks whether the user is in the HEADMASTER role, the highest privilege level.
+     */
+    protected Boolean userInHeadmasterRole() {
+        logger.debug("Checking for HEADMASTER role.");
+        return securityContext.isUserInRole(Role.HEADMASTER.name().toLowerCase());
+    }
+
+    /**
      * Utility method for seeing if certain query parameters that are dependant on each 
      * other are all included.
      */

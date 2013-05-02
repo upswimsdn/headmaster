@@ -17,13 +17,12 @@ import edu.lmu.cs.headmaster.ws.util.DomainObjectUtils;
 public class UserResourceTest extends ResourceTest {
 
     @Test
-    public void testGetUserByDifferentUser() {
+    public void testGetUserAsHeadmasterResponds200() {
         // Users may only access themselves.  The test fixtures logs in as "testuser".
         ClientResponse response = wr.path("users/login/admin").get(ClientResponse.class);
 
         // We should get a 404, so as not to give away an existing user.
-        Assert.assertEquals(404, response.getStatus());
-        Assert.assertEquals("404 " + UserResource.USER_NOT_FOUND, response.getEntity(String.class));
+        Assert.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -99,5 +98,13 @@ public class UserResourceTest extends ResourceTest {
             "400 " + UserResource.USER_OVERSPECIFIED,
             response.getEntity(String.class)
         );
+    }
+    
+    @Test
+    public void testGetManagedCourses() {
+        User u = wr.path("users/login/prof").get(User.class);
+        Assert.assertEquals(Long.valueOf(1000002L), u.getId());
+        Assert.assertEquals(1, u.getManagedCourses().size());
+        Assert.assertEquals(Long.valueOf(100001L), u.getManagedCourses().get(0).getId());
     }
 }
