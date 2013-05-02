@@ -46,6 +46,14 @@ public interface UserResource {
     @GET
     @Path("login/{login}")
     User getUserByLogin(@PathParam("login") String login);
+    
+    /**
+     * Returns the currently logged in user.
+     * @return The user whose security credentials you pass along with the request.
+     */
+    @GET
+    @Path("self")
+    User getOwnUserInformation();
 
     /**
      * Creates a user for which the server will generate the id.
