@@ -28,6 +28,7 @@ public interface UserResource {
     String USER_NOT_FOUND = "user.not.found";
     String USER_OVERSPECIFIED = "user.overspecified";
     String USER_INCONSISTENT = "user.inconsistent";
+    String USER_NOT_LOGGED_IN = "user.not.logged.in";
 
     /**
      * Returns all known users. Only users with the HEADMASTER role should be
