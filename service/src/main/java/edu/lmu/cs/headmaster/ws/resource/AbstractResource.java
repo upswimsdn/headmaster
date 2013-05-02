@@ -192,6 +192,13 @@ public class AbstractResource {
         logger.debug("Checking for HEADMASTER role.");
         return securityContext.isUserInRole(Role.HEADMASTER.name().toLowerCase());
     }
+    
+    /**
+     * Helper method to retrieve the currently logged in user's username.
+     */
+    protected String retrieveCurrentUsername() {
+        return securityContext.getUserPrincipal().getName();
+    }
 
     /**
      * Utility method for seeing if certain query parameters that are dependant on each 
