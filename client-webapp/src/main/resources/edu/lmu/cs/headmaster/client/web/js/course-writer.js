@@ -19,7 +19,8 @@ $(function () {
 
         parseInputToDateTime = function (day) {
            var time = $("#timeinput-" + day).val().split(":");
-           return new Date(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_MONDAY + parseInt(day), parseInt(time[0]), parseInt(time[1]), 0, 0);
+           return new Date(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_MONDAY + parseInt(day), 
+                   parseInt(time[0]), parseInt(time[1]), 0, 0);
         };
 
     $("#course-save").click(function (event) {
