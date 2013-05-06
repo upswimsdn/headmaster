@@ -31,7 +31,7 @@ public class UserResourceTest extends ResourceTest {
         // happen in practice because the user gets logged in first, which will
         // not happen unless they exist. Still, the test fixture lies outside
         // these rules, so we try this here anyway.
-        ClientResponse response = wr.path("users/login/testuser").get(ClientResponse.class);
+        ClientResponse response = wr.path("users/login/notauser").get(ClientResponse.class);
 
         // This is a classic 404.
         Assert.assertEquals(404, response.getStatus());
@@ -40,15 +40,15 @@ public class UserResourceTest extends ResourceTest {
 
     @Test
     public void testGetUserByLogin() {
-        // The test fixture does not contain the testuser, so we need to create
+        // The test fixture does not contain the tester, so we need to create
         // it first (we assume here that creation works properly; verifying
         // *that* is the job of other unit tests).
-        User user = DomainObjectUtils.createUserObject("testuser", "testuser@headmaster.test",
+        User user = DomainObjectUtils.createUserObject("tester", "tester@headmaster.test",
                 "testpassword", Role.STUDENT);
         wr.path("users").post(user);
 
         // Now we test.
-        User responseUser = wr.path("users/login/testuser")
+        User responseUser = wr.path("users/login/tester")
                 .get(ClientResponse.class)
                 .getEntity(User.class);
         Assert.assertEquals(user.getLogin(), responseUser.getLogin());

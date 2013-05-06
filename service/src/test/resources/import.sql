@@ -2,6 +2,10 @@
 insert into serviceuser(id, active, challenge, email, login) values(1000000, true, 'password', 'admin@headmaster.test', 'admin');
 insert into userrole(id, rolename, login) values(1000000, 'HEADMASTER', 'admin');
 
+insert into serviceuser(id, active, challenge, email, login) values(2000000, true, 'password', 'test@headmaster.test', 'testuser');
+insert into userrole(id, rolename, login) values(2000000, 'STAFF', 'testuser');
+
+
 insert into serviceuser(id, active, challenge, email, login) values(1000001, true, 'password-noroles', 'noroles@headmaster.test', 'noroles');
 insert into serviceuser(id, active, challenge, email, login) values(1000002, true, 'aaaaaa', 'prof@university.edu', 'prof');
 
