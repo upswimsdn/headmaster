@@ -1,6 +1,7 @@
 package edu.lmu.cs.headmaster.ws.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -129,7 +130,7 @@ public class User implements Serializable {
         this.student = student;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<Course> getManagedCourses() {

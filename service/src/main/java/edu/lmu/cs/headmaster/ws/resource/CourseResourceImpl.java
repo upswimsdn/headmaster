@@ -49,7 +49,7 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
 
         validate(course.getId() == null, Response.Status.BAD_REQUEST, CourseResource.COURSE_OVERSPECIFIED);
 
-        courseService.createCourse(course);
+        courseService.createCourse(course, retrieveCurrentUsername());
         return Response.created(URI.create(Long.toString(course.getId()))).build();
     }
 

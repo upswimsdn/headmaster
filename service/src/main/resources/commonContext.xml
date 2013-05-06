@@ -96,6 +96,7 @@
     <bean id="courseService"
         class="edu.lmu.cs.headmaster.ws.service.CourseServiceImpl">
         <constructor-arg ref="courseDao" />
+        <constructor-arg ref="userDao" />
     </bean>
 
     <bean id="studentService"

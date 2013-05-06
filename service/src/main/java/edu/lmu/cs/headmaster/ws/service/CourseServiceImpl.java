@@ -5,16 +5,20 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import edu.lmu.cs.headmaster.ws.dao.CourseDao;
+import edu.lmu.cs.headmaster.ws.dao.UserDao;
 import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.domain.Student;
+import edu.lmu.cs.headmaster.ws.domain.User;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public class CourseServiceImpl implements CourseService {
 
     private CourseDao courseDao;
+    private UserDao userDao;
 
-    public CourseServiceImpl(CourseDao courseDao) {
+    public CourseServiceImpl(CourseDao courseDao, UserDao userDao) {
         this.courseDao = courseDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -25,8 +29,13 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void createCourse(Course course) {
+    public void createCourse(Course course, String creatorLogin) {
         courseDao.createOrUpdateCourse(course);
+
+        // We must tie this specific course to the User who is creating it.
+        User creator = userDao.getUserByLogin(creatorLogin);
+        creator.getManagedCourses().add(course);
+        userDao.createOrUpdateUser(creator);
     }
 
     @Override
