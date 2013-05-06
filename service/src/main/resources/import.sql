@@ -4,5 +4,5 @@
 insert into serviceuser(id, active, challenge, email, login) values(-1, true, 'c82ca1ed45ce37f63f5868bc2297f7121df1068fb9a85b4b33450ecb7e649cab30316152256e6e531b0d5dbceb059c13ba55fa62f72420a774a3327f3e180e7d', '', 'headmaster');
 insert into userrole(id, rolename, login) values(-1, 'HEADMASTER', 'headmaster');
 
---insert into serviceuser(id, active, challenge, email, login) values(1, true, '9B71D224BD62F3785D96D46AD3EA3D73319BFBC2890CAADAE2DFF72519673CA72323C3D99BA5C11D7C7ACC6E14B8C5DA0C4663475C2E5C3ADEF46F73BCDEC043', '', 'testaccount');
---insert into userrole(id, rolename, login) values(1, 'FACULTY', 'testaccount');
+insert into serviceuser(id, active, challenge, email, login) values(1, true, '9B71D224BD62F3785D96D46AD3EA3D73319BFBC2890CAADAE2DFF72519673CA72323C3D99BA5C11D7C7ACC6E14B8C5DA0C4663475C2E5C3ADEF46F73BCDEC043', '', 'testaccount');
+insert into userrole(id, rolename, login) values(1, 'FACULTY', 'testaccount');
