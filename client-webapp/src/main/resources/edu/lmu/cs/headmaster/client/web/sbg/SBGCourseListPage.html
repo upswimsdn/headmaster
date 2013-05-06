@@ -1,0 +1,23 @@
+<!doctype html>
+
+<html xmlns:wicket>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>HeadmasterSBG: Courses</title>
+    </head>
+    <body>
+        <wicket:extend>
+
+            <div class="container">
+                <div id="no-courses-msg" class="hero-unit" style="display:none">
+                    <p><wicket:message key="emptymessage"/></p>
+                </div>
+            </div>
+
+            <script src="http://code.jquery.com/jquery.min.js"></script>
+            <wicket:link>
+                <script src="../js/sbg-course-list.js"></script>
+            </wicket:link>
+        </wicket:extend>
+    </body>
+</html>
