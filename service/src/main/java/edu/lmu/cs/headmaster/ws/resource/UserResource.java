@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.domain.User;
 
 /**
@@ -55,6 +56,10 @@ public interface UserResource {
     @GET
     @Path("self")
     User getOwnUserInformation();
+    
+    @GET
+    @Path("self/courses")
+    List<Course> getManagedCourses();
 
     /**
      * Creates a user for which the server will generate the id.

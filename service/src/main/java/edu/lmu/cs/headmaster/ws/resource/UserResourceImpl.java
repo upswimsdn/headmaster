@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 import edu.lmu.cs.headmaster.ws.dao.UserDao;
+import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.domain.User;
 import edu.lmu.cs.headmaster.ws.domain.UserRole;
 
@@ -48,6 +49,11 @@ public class UserResourceImpl extends AbstractResource implements UserResource {
         String login = retrieveCurrentUsername();
         validate(login != null, Response.Status.UNAUTHORIZED, USER_NOT_LOGGED_IN);
         return getUserByLogin(login);
+    }
+    
+    @Override 
+    public List<Course> getManagedCourses() {
+        return getOwnUserInformation().getManagedCourses();
     }
 
     @Override
