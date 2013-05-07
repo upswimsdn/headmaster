@@ -130,9 +130,10 @@ public class User implements Serializable {
         this.student = student;
     }
 
-    @ManyToMany
+    @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
+    @XmlTransient
     public List<Course> getManagedCourses() {
         return managedCourses;
     }

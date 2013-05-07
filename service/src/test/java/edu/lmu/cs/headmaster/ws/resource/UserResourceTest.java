@@ -99,12 +99,4 @@ public class UserResourceTest extends ResourceTest {
             response.getEntity(String.class)
         );
     }
-    
-    @Test
-    public void testGetManagedCourses() {
-        User u = wr.path("users/login/prof").get(User.class);
-        Assert.assertEquals(Long.valueOf(1000002L), u.getId());
-        Assert.assertEquals(1, u.getManagedCourses().size());
-        Assert.assertEquals(Long.valueOf(100001L), u.getManagedCourses().get(0).getId());
-    }
 }
