@@ -458,8 +458,8 @@ public class Student {
     }
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "enrolledStudents")
-    @XmlTransient
     // Enrolled courses will not be lazily loaded as they reference back to students
+    @XmlTransient
     public List<Course> getEnrolledCourses() {
         return enrolledCourses;
     }
