@@ -131,6 +131,7 @@ public class Headmaster extends AuthenticatedWebApplication {
         mountBookmarkablePage("sbg/main", SBGMain.class);
         mountBookmarkablePage("sbg/courses", SBGCourseListPage.class);
         mountBookmarkablePage("sbg/courses/search", SBGCourseSearchPage.class);
+        mountBookmarkablePage("sbg/courses/create", SBGCourseCreatePage.class);
         
         // More URL customization, now for URLs with parameters.
         // Special handling: individual referral page is parameterized.
