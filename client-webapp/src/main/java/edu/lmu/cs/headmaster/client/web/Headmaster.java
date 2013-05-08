@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.target.coding.MixedParamUrlCodingStrategy;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
+import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseCreatePage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseListPage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseSearchPage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGMain;
