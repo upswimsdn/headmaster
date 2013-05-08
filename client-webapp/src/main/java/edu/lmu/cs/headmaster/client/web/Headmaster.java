@@ -12,6 +12,7 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseCreatePage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseListPage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseSearchPage;
+import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseViewPage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGMain;
 
 
@@ -130,7 +131,8 @@ public class Headmaster extends AuthenticatedWebApplication {
         
         //URL customization for Standards Based Grading pages
         mountBookmarkablePage("sbg/main", SBGMain.class);
-        mountBookmarkablePage("sbg/courses", SBGCourseListPage.class);
+
+        mountBookmarkablePage("sbg/courses/list", SBGCourseListPage.class);
         mountBookmarkablePage("sbg/courses/search", SBGCourseSearchPage.class);
         mountBookmarkablePage("sbg/courses/create", SBGCourseCreatePage.class);
         
@@ -163,6 +165,13 @@ public class Headmaster extends AuthenticatedWebApplication {
             new String[] { "id" }
         );
         mount(eventEditorUrls);
+        
+        MixedParamUrlCodingStrategy gradingCourseViewUrls = new MixedParamUrlCodingStrategy(
+            "sbg/courses",
+            SBGCourseViewPage.class,
+            new String[] { "id" }
+        );
+        mount(gradingCourseViewUrls);
     }
 
 }
