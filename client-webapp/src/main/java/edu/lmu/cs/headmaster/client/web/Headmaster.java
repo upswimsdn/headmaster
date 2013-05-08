@@ -10,6 +10,7 @@ import org.apache.wicket.request.target.coding.MixedParamUrlCodingStrategy;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseListPage;
+import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseSearchPage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGMain;
 
 
@@ -129,6 +130,7 @@ public class Headmaster extends AuthenticatedWebApplication {
         //URL customization for Standards Based Grading pages
         mountBookmarkablePage("sbg/main", SBGMain.class);
         mountBookmarkablePage("sbg/courses", SBGCourseListPage.class);
+        mountBookmarkablePage("sbg/courses/search", SBGCourseSearchPage.class);
         
         // More URL customization, now for URLs with parameters.
         // Special handling: individual referral page is parameterized.
