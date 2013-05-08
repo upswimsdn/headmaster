@@ -12,7 +12,7 @@ public interface CourseDao {
     Course getCourseById(Long id);
     
     List<Course> getCourses(String discipline, List<DateTime> classTimes, String instructor,
-            Integer maxClassSize, Integer minClassSize, Term term, Integer year,int skip, int max);
+            Integer maxClassSize, Integer minClassSize, Term term, Integer year, String title, int skip, int max);
     
     Course createCourse(Course course);
     

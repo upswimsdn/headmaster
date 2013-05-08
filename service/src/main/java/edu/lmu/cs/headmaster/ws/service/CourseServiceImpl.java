@@ -23,9 +23,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getCourses(String discipline, List<DateTime> classTimes, String instructor,
-            Integer maxClassSize, Integer minClassSize, Term term, Integer year, int skip, int max) {
-        return courseDao.getCourses(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year, skip,
-                max);
+            Integer maxClassSize, Integer minClassSize, Term term, Integer year, String title, int skip, int max) {
+
+        return courseDao.getCourses(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year, title,
+                skip, max);
     }
 
     @Override

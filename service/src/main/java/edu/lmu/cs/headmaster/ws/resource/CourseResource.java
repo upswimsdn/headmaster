@@ -25,7 +25,7 @@ import edu.lmu.cs.headmaster.ws.types.Term;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface CourseResource {
-    
+
     static final String COURSE_NOT_FOUND = "course.not.found";
     static final String COURSE_OVERSPECIFIED = "course.overspecified";
     static final String COURSE_QUERY_PARAMETERS_BAD = "malformed.course.query.paramters";
@@ -34,13 +34,13 @@ public interface CourseResource {
     static final DateTime DEFAULT_MONDAY = new DateTime(2013, DateTimeConstants.FEBRUARY, 18, 0, 0, 0, 0);
     static final DateTime DEFAULT_SUNDAY = new DateTime(2013, DateTimeConstants.FEBRUARY, 24, 23, 59, 59, 0);
     static final Interval LEGAL_DATE_RANGE = new Interval(DEFAULT_MONDAY, DEFAULT_SUNDAY);
-    
+
     @GET
     List<Course> getCourses(@QueryParam("discipline") String discipline, @QueryParam("classTimes") String classTimes,
             @QueryParam("instructor") String instructor, @QueryParam("maxClassSize") Integer maxClassSize,
             @QueryParam("minClassSize") Integer minClassSize, @QueryParam("term") Term term,
-            @QueryParam("year") Integer year, @QueryParam("skip") @DefaultValue("0") int skip,
-            @QueryParam("max") @DefaultValue("50") int max);
+            @QueryParam("year") Integer year, @QueryParam("title") String title,
+            @QueryParam("skip") @DefaultValue("0") int skip, @QueryParam("max") @DefaultValue("50") int max);
 
     @POST
     Response createCourse(Course course);
@@ -52,7 +52,7 @@ public interface CourseResource {
     @GET
     @Path("{id}")
     Course getCourseById(@PathParam("id") Long id);
-    
+
     @GET
     @Path("{id}/students")
     List<Student> getEnrolledStudentsById(@PathParam("id") Long id);

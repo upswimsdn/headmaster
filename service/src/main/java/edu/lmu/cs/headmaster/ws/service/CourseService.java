@@ -11,7 +11,7 @@ import edu.lmu.cs.headmaster.ws.types.Term;
 public interface CourseService {
 
     List<Course> getCourses(String discipline, List<DateTime> classTimes, String instructor, Integer maxClassSize,
-            Integer minClassSize, Term term, Integer year, int skip, int max);
+            Integer minClassSize, Term term, Integer year, String title, int skip, int max);
 
     void createCourse(Course course, String creatorLogin);
 

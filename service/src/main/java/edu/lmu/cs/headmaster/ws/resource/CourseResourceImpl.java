@@ -27,7 +27,7 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
 
     @Override
     public List<Course> getCourses(String discipline, String classTimes, String instructor, Integer maxClassSize,
-            Integer minClassSize, Term term, Integer year, int skip, int max) {
+            Integer minClassSize, Term term, Integer year, String title, int skip, int max) {
         logServiceCall();
 
         // Error check all the query parameters
@@ -36,8 +36,8 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
         // Process and validate the class time query string
         List<DateTime> schedule = processQueryByClassTime(classTimes);
 
-        return courseService.getCourses(discipline, schedule, instructor, maxClassSize, minClassSize, term, year, skip,
-                max);
+        return courseService.getCourses(discipline, schedule, instructor, maxClassSize, minClassSize, term, year,
+                title, skip, max);
     }
 
     @Override
