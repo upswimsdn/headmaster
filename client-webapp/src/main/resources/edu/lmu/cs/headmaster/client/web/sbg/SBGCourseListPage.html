@@ -12,14 +12,26 @@
                 <div class="page-header">
                     <h1><wicket:message key="title">My Graded Courses</wicket:message></h1>
                 </div>
+                
+                <div class="progress progress-striped active" id="course-list-progress">
+                    <div class="bar" style="width: 100%;"></div>
+                </div>
 
-                <div id="no-courses-msg" class="hero-unit" style="display:none">
-                    <p><wicket:message key="emptymessage"/></p>
+                <div class="alert alert-info hide" id="course-list-empty">
+                    <wicket:message key="emptymessage"></wicket:message>
                     <p>Would you like to <a href="sbg/courses/create">create a new course</a> or <a href="sbg/courses/search">look up 
                     a course</a> to setup for Standards Based Grading?</p>
                 </div>
-                
-                <div id="course-list-section"></div>
+
+                <table class="table table-striped table-condensed table-hover hide" id="course-list">
+                     <thead><tr>
+                         <th><wicket:message key="list.head.title">Title</wicket:message></th>
+                         <th><wicket:message key="list.head.term">Term</wicket:message></th>
+                         <th><wicket:message key="list.head.year">Year</wicket:message></th>
+                     </tr></thead>
+                     <tbody></tbody>
+                 </table>
+
             </div>
 
             <script src="http://code.jquery.com/jquery.min.js"></script>
