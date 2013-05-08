@@ -24,10 +24,14 @@
                 </div>
 
                 <table class="table table-striped table-condensed table-hover hide" id="course-list">
+                    <label id="only-show-current" for="limit-view" class="checkbox" style="display:none">
+				        <input id="limit-view" type="checkbox">
+				        <wicket:message key="label.showcurrent">show only current courses currently session</wicket:message>
+				    </label>
                      <thead><tr>
                          <th><wicket:message key="list.head.title">Title</wicket:message></th>
-                         <th><wicket:message key="list.head.term">Term</wicket:message></th>
                          <th><wicket:message key="list.head.year">Year</wicket:message></th>
+                         <th><wicket:message key="list.head.term">Term</wicket:message></th>
                      </tr></thead>
                      <tbody></tbody>
                  </table>
