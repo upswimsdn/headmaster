@@ -31,7 +31,7 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
         logServiceCall();
 
         // Error check all the query parameters
-        validateQueryParameters(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year, skip, max);
+        validateQueryParameters(discipline, classTimes, instructor, maxClassSize, minClassSize, term, year, title, skip, max);
 
         // Process and validate the class time query string
         List<DateTime> schedule = processQueryByClassTime(classTimes);
@@ -112,10 +112,10 @@ public class CourseResourceImpl extends AbstractResource implements CourseResour
      * Method to check validate parameters and throw service errors when requesting courses by any query.
      */
     public void validateQueryParameters(String discipline, String classTimes, String instructor, Integer maxClassSize,
-            Integer minClassSize, Term term, Integer year, int skip, int max) {
+            Integer minClassSize, Term term, Integer year, String title, int skip, int max) {
         // Check that we have at least on query parameter
         validate(!(discipline == null && classTimes == null && instructor == null && maxClassSize == null
-                && minClassSize == null && term == null && year == null), Response.Status.BAD_REQUEST, QUERY_REQUIRED);
+                && minClassSize == null && term == null && year == null && title == null), Response.Status.BAD_REQUEST, QUERY_REQUIRED);
 
         // Check that both term and year are either present or not present
         validate(checkMutualInclusionOfParameters(term, year), Response.Status.BAD_REQUEST, ARGUMENT_CONFLICT);
