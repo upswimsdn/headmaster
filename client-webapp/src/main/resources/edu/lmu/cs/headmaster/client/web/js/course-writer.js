@@ -29,6 +29,8 @@ $(function () {
                 discipline: $("#course-discipline").val(),
                 instructor: $("#course-instructor").val(),
                 description: $("#course-description").val(),
+                term: $("#course-term").val().toUpperCase(),
+                year: $("#course-year").val() || new Date().getFullYear(),
                 classSize: $("#course-classsize").val(),
                 credits: $("#course-credits").val(),
                 room: $("#course-room").val(),
@@ -61,6 +63,9 @@ $(function () {
     // Hide and initialize all bootstrap-timepickers
     $(".bootstrap-timepicker").hide();
     $(".bootstrap-timepicker > input").timepicker({showMeridian: false});
+    
+    // Set starting value for year to the current year
+    $("#course-year").val(new Date().getFullYear());
     
     $("#day-picker > .btn").click(function (event) {
         var day = this.value;
