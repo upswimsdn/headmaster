@@ -7,6 +7,10 @@
     </head>
     <body>
         <wicket:extend>
+        
+            <div class="page-header">
+                <h1><wicket:message key="title">My Graded Courses</wicket:message></h1>
+            </div>
 
             <div class="container">
                 <div id="no-courses-msg" class="hero-unit" style="display:none">
@@ -14,6 +18,8 @@
                     <p>Would you like to <a href="sbg/courses/create">create a new course</a> or <a href="sbg/courses/search">look up 
                     a course</a> to setup for Standards Based Grading?</p>
                 </div>
+                
+                <div id="course-list-section"></div>
             </div>
 
             <script src="http://code.jquery.com/jquery.min.js"></script>
