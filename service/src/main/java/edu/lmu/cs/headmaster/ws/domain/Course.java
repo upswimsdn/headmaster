@@ -26,7 +26,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
-import edu.lmu.cs.headmaster.ws.domain.sbg.Rubric;
+import edu.lmu.cs.headmaster.ws.domain.sbg.GradingSchema;
 import edu.lmu.cs.headmaster.ws.types.Term;
 import edu.lmu.cs.headmaster.ws.util.DateTimeXmlAdapter;
 import edu.lmu.cs.headmaster.ws.util.DurationXmlAdapter;
@@ -47,7 +47,7 @@ public class Course {
     private Integer classSize;
     private String instructor;
     private List<Student> enrolledStudents = new ArrayList<Student>();
-    private Rubric rubric;
+    private GradingSchema gradingSchema;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -176,11 +176,11 @@ public class Course {
         this.classLength = classLength;
     }
 
-    public Rubric getRubric() {
-        return rubric;
+    public GradingSchema getGradingSchema() {
+        return gradingSchema;
     }
 
-    public void setRubric(Rubric rubric) {
-        this.rubric = rubric;
+    public void setGradingSchema(GradingSchema gradingSchema) {
+        this.gradingSchema = gradingSchema;
     }
 }

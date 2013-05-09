@@ -14,7 +14,7 @@ import edu.lmu.cs.headmaster.ws.domain.Course;
 import edu.lmu.cs.headmaster.ws.domain.sbg.Assignment;
 import edu.lmu.cs.headmaster.ws.domain.sbg.Objective;
 import edu.lmu.cs.headmaster.ws.domain.sbg.Outcome;
-import edu.lmu.cs.headmaster.ws.domain.sbg.Rubric;
+import edu.lmu.cs.headmaster.ws.domain.sbg.GradingSchema;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
 public class CourseResourceTest extends ResourceTest {
@@ -173,15 +173,15 @@ public class CourseResourceTest extends ResourceTest {
     @Test
     public void testCreateNewSBGRubricForExistingCourse() {
         Course course = wr.path("courses/100002").get(Course.class);
-        Rubric rubric = new Rubric();
+        GradingSchema rubric = new GradingSchema();
         Outcome outcome = new Outcome("Herk a derr");
         Objective objective = new Objective("Derk a herr", outcome);
         rubric.addObjective(objective);
-        course.setRubric(rubric);
+        course.setGradingSchema(rubric);
         Assert.assertEquals(1, objective.getOutcomes().size());
         wr.path("courses/100002").put(course);
         Course after = wr.path("courses/100002").get(Course.class);
-        Rubric r = after.getRubric();
+        GradingSchema r = after.getGradingSchema();
         Assert.assertEquals(1, r.getObjectives().size());
         Assert.assertEquals("Derk a herr", r.getObjectives().get(0).getDescription());
         Assert.assertEquals("Herk a derr", r.getObjectives().get(0).getOutcomes().get(0).getDescription());
@@ -190,7 +190,7 @@ public class CourseResourceTest extends ResourceTest {
     @Test
     public void testUpdateSBGRubricWithNewOutcome() {
         Course course = wr.path("courses/100001").get(Course.class);
-        Rubric before = course.getRubric();
+        GradingSchema before = course.getGradingSchema();
         List<Objective> o = before.getObjectives();
         Assert.assertEquals(1, o.size());
         Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
@@ -201,11 +201,11 @@ public class CourseResourceTest extends ResourceTest {
 
         o.get(0).addProficiency(new Outcome("Sexy shell"));
         before.setObjectives(o);
-        course.setRubric(before);
+        course.setGradingSchema(before);
         wr.path("courses/100001").put(course);
 
         course = wr.path("courses/100001").get(Course.class);
-        Rubric after = course.getRubric();
+        GradingSchema after = course.getGradingSchema();
         o = after.getObjectives();
         Assert.assertEquals(1, o.size());
         Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
@@ -219,7 +219,7 @@ public class CourseResourceTest extends ResourceTest {
     @Test
     public void testCreateAssignmentForRubric() {
         Course course = wr.path("courses/100001").get(Course.class);
-        Rubric r = course.getRubric();
+        GradingSchema r = course.getGradingSchema();
         Assert.assertEquals(0, r.getAssignments().size());
 
         Assignment a = new Assignment();
@@ -227,11 +227,11 @@ public class CourseResourceTest extends ResourceTest {
         o.setId(100001L);
         a.addOutcome(o);
         r.addAssignment(a);
-        course.setRubric(r);
+        course.setGradingSchema(r);
         wr.path("courses/100001").put(course);
 
         Course course2 = wr.path("courses/100001").get(Course.class);
-        r = course2.getRubric();
+        r = course2.getGradingSchema();
         Assert.assertEquals(1, r.getAssignments().size());
         Assert.assertEquals("Successfully SSH tunnel into a machine", r.getAssignments()
                 .get(0)
@@ -243,18 +243,18 @@ public class CourseResourceTest extends ResourceTest {
     @Test
     public void testDeleteRubricFromCourse() {
         Course course = wr.path("courses/100001").get(Course.class);
-        List<Objective> o = course.getRubric().getObjectives();
+        List<Objective> o = course.getGradingSchema().getObjectives();
         Assert.assertEquals(1, o.size());
         Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
         Assert.assertEquals(3, o.get(0).getOutcomes().size());
         Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getOutcomes().get(0).getDescription());
         Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getOutcomes().get(1).getDescription());
         Assert.assertEquals("Use grep to the output of another program", o.get(0).getOutcomes().get(2).getDescription());
-        course.setRubric(null);
+        course.setGradingSchema(null);
         wr.path("courses/100001").put(course);
         Course course2 = wr.path("courses/100001").get(Course.class);
-        Assert.assertEquals(0, course2.getRubric().getObjectives().size());
-        Assert.assertEquals(0, course2.getRubric().getAssignments().size());
+        Assert.assertEquals(0, course2.getGradingSchema().getObjectives().size());
+        Assert.assertEquals(0, course2.getGradingSchema().getAssignments().size());
     }
 
     @Test

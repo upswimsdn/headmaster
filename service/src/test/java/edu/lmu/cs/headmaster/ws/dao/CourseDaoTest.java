@@ -15,7 +15,7 @@ import edu.lmu.cs.headmaster.ws.domain.Student;
 import edu.lmu.cs.headmaster.ws.domain.sbg.Assignment;
 import edu.lmu.cs.headmaster.ws.domain.sbg.Objective;
 import edu.lmu.cs.headmaster.ws.domain.sbg.Outcome;
-import edu.lmu.cs.headmaster.ws.domain.sbg.Rubric;
+import edu.lmu.cs.headmaster.ws.domain.sbg.GradingSchema;
 import edu.lmu.cs.headmaster.ws.types.Term;
 import edu.lmu.cs.headmaster.ws.util.ApplicationContextTest;
 
@@ -216,14 +216,14 @@ public class CourseDaoTest extends ApplicationContextTest {
     @Test
     public void testCreateNewSBGRubricForExistingCourse() {
         Course course = courseDao.getCourseById(100002L);
-        Rubric rubric = new Rubric();
+        GradingSchema rubric = new GradingSchema();
         Outcome proficiency = new Outcome("Herk a derr");
         Objective outcome = new Objective("Derk a herr", proficiency);
         rubric.addObjective(outcome);
-        course.setRubric(rubric);
+        course.setGradingSchema(rubric);
         courseDao.createOrUpdateCourse(course);
         Course after = courseDao.getCourseById(100002L);
-        Rubric r = after.getRubric();
+        GradingSchema r = after.getGradingSchema();
         Assert.assertEquals(1, r.getObjectives().size());
         Assert.assertEquals("Derk a herr", r.getObjectives().get(0).getDescription());
         Assert.assertEquals("Herk a derr", r.getObjectives().get(0).getOutcomes().get(0).getDescription());
@@ -232,7 +232,7 @@ public class CourseDaoTest extends ApplicationContextTest {
     @Test
     public void testUpdateSBGRubricWithNewOutcome() {
         Course course = courseDao.getCourseById(100001L);
-        Rubric before = course.getRubric();
+        GradingSchema before = course.getGradingSchema();
         List<Objective> o = before.getObjectives();
         Assert.assertEquals(1, o.size());
         Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
@@ -243,11 +243,11 @@ public class CourseDaoTest extends ApplicationContextTest {
 
         o.get(0).addProficiency(new Outcome("Sexy shell"));
         before.setObjectives(o);
-        course.setRubric(before);
+        course.setGradingSchema(before);
         courseDao.createOrUpdateCourse(course);
 
         course = courseDao.getCourseById(100001L);
-        Rubric after = course.getRubric();
+        GradingSchema after = course.getGradingSchema();
         o = after.getObjectives();
         Assert.assertEquals(1, o.size());
         Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
@@ -261,7 +261,7 @@ public class CourseDaoTest extends ApplicationContextTest {
     @Test
     public void testCreateAssignmentForRubric() {
         Course course = courseDao.getCourseById(100001L);
-        Rubric r = course.getRubric();
+        GradingSchema r = course.getGradingSchema();
         Assert.assertEquals(0, r.getAssignments().size());
 
         Assignment a = new Assignment();
@@ -269,11 +269,11 @@ public class CourseDaoTest extends ApplicationContextTest {
         o.setId(100001L);
         a.addOutcome(o);
         r.addAssignment(a);
-        course.setRubric(r);
+        course.setGradingSchema(r);
         courseDao.createOrUpdateCourse(course);
 
         course = courseDao.getCourseById(100001L);
-        r = course.getRubric();
+        r = course.getGradingSchema();
         Assert.assertEquals(1, r.getAssignments().size());
         Assert.assertEquals("Successfully SSH tunnel into a machine", r.getAssignments()
                 .get(0)
@@ -286,17 +286,17 @@ public class CourseDaoTest extends ApplicationContextTest {
     @Test
     public void testDeleteRubricFromCourse() {
         Course course = courseDao.getCourseById(100001L);
-        List<Objective> o = course.getRubric().getObjectives();
+        List<Objective> o = course.getGradingSchema().getObjectives();
         Assert.assertEquals(1, o.size());
         Assert.assertEquals("Become adept at using a CLI", o.get(0).getDescription());
         Assert.assertEquals(3, o.get(0).getOutcomes().size());
         Assert.assertEquals("Successfully SSH tunnel into a machine", o.get(0).getOutcomes().get(0).getDescription());
         Assert.assertEquals("Pipeline outputs between various programs", o.get(0).getOutcomes().get(1).getDescription());
         Assert.assertEquals("Use grep to the output of another program", o.get(0).getOutcomes().get(2).getDescription());
-        course.setRubric(null);
+        course.setGradingSchema(null);
         courseDao.createOrUpdateCourse(course);
         course = courseDao.getCourseById(100001L);
-        Assert.assertEquals(0, course.getRubric().getObjectives().size());
-        Assert.assertEquals(0, course.getRubric().getAssignments().size());
+        Assert.assertEquals(0, course.getGradingSchema().getObjectives().size());
+        Assert.assertEquals(0, course.getGradingSchema().getAssignments().size());
     }
 }

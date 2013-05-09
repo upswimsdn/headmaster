@@ -25,7 +25,7 @@
                 <value>edu.lmu.cs.headmaster.ws.domain.User</value>
                 <value>edu.lmu.cs.headmaster.ws.domain.UserRole</value>
                 <value>edu.lmu.cs.headmaster.ws.domain.Course</value>
-                <value>edu.lmu.cs.headmaster.ws.domain.sbg.Rubric</value>
+                <value>edu.lmu.cs.headmaster.ws.domain.sbg.GradingSchema</value>
                 <value>edu.lmu.cs.headmaster.ws.domain.sbg.Objective</value>
                 <value>edu.lmu.cs.headmaster.ws.domain.sbg.Assignment</value>
                 <value>edu.lmu.cs.headmaster.ws.domain.sbg.Outcome</value>

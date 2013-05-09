@@ -25,7 +25,7 @@ import edu.lmu.cs.headmaster.ws.domain.sbg.AssignmentRecord;
 import edu.lmu.cs.headmaster.ws.domain.sbg.Objective;
 import edu.lmu.cs.headmaster.ws.domain.sbg.Outcome;
 import edu.lmu.cs.headmaster.ws.domain.sbg.OutcomeEvaluation;
-import edu.lmu.cs.headmaster.ws.domain.sbg.Rubric;
+import edu.lmu.cs.headmaster.ws.domain.sbg.GradingSchema;
 import edu.lmu.cs.headmaster.ws.types.Role;
 import edu.lmu.cs.headmaster.ws.types.Term;
 
@@ -55,7 +55,7 @@ public class NaturalJsonContextResolver implements ContextResolver<JAXBContext> 
         Objective.class,
         Outcome.class,
         OutcomeEvaluation.class,
-        Rubric.class,
+        GradingSchema.class,
         Term.class,
         User.class,
         UserRole.class
