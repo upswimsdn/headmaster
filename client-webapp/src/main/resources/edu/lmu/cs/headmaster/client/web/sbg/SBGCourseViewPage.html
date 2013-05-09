@@ -3,20 +3,23 @@
 <html xmlns:wicket>
     <head>
         <meta charset="UTF-8"/>
-        <title>HeadmasterSBG: Courses</title>
+        <title>HeadmasterSBG: Manage Course</title>
     </head>
+    <wicket:link>
+        <link rel="stylesheet" href="../css/common.css"/>
+    </wicket:link>
     <body>
         <wicket:extend>
+            <wicket:child/>
 
             <div class="hide" id="course-id" wicket:id="course-id"></div>
 
             <div class="container">
             </div>
-
-            <script src="http://code.jquery.com/jquery.min.js"></script>
-            <wicket:link>
-                <script src="../js/course-view.js"></script>
-            </wicket:link>
+	        <wicket:link>
+	            <script src="http://code.jquery.com/jquery.min.js"></script>
+	            <script src="../js/course-view.js"></script>
+	        </wicket:link>
         </wicket:extend>
     </body>
 </html>

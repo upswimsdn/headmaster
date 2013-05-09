@@ -14,6 +14,7 @@ import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseListPage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseSearchPage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGCourseViewPage;
 import edu.lmu.cs.headmaster.client.web.sbg.SBGMain;
+import edu.lmu.cs.headmaster.client.web.sbg.SchemaEditorPage;
 
 
 /**
@@ -172,6 +173,13 @@ public class Headmaster extends AuthenticatedWebApplication {
             new String[] { "id" }
         );
         mount(gradingCourseViewUrls);
+        
+        MixedParamUrlCodingStrategy gradingSchemaEditUrls = new MixedParamUrlCodingStrategy(
+            "sbg/courses/schema",
+            SchemaEditorPage.class,
+            new String[] { "id" }
+        );
+        mount(gradingSchemaEditUrls);
     }
 
 }
